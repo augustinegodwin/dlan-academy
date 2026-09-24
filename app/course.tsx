@@ -184,7 +184,6 @@ export default function CoursesGrid() {
               title={item.title}
               description={item.description}
               duration={item.duration}
-              rating={item.rating}
               mentor={item.slug}
               tools={item.tools}
             />
