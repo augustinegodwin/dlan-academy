@@ -1,26 +1,80 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
-import { Wifi, GraduationCap, Zap, ArrowUpRight, Layers, BadgeCheck, Globe, Smartphone } from "lucide-react";
+import { Wifi, Zap, ArrowUpRight, BadgeCheck, Globe, Smartphone, HouseHeart } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function WhyChooseUs() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".wcu-heading", {
+        opacity: 0,
+        y: 24,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".wcu-heading",
+          start: "top 90%",
+        },
+      });
+
+      gsap.from(".wcu-bento-card", {
+        opacity: 0,
+        y: 40,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: ".wcu-bento-grid",
+          start: "top 90%",
+        },
+      });
+
+      gsap.from(".wcu-trust-card", {
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: ".wcu-trust-row",
+          start: "top 90%",
+        },
+      });
+    },
+    { scope: sectionRef }
+  );
+
   return (
-    <section id="offer" className="w-full overflow-hidden bg-background px-4 py-20 text-foreground sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+    <section
+      ref={sectionRef}
+      id="offer"
+      className="w-full overflow-hidden bg-background px-4 py-20 text-foreground sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+    >
       <div className="mx-auto w-full max-w-[1320px]">
 
-        <div className="animate-fade-up text-center">
+        <div className="wcu-heading text-center">
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Why choose us
           </span>
           <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground">
             Tell us what you're building,
             <br />
-            <span className="text-muted-foreground">we'll take it from there.</span>
+            <span className="text-muted-foreground-foreground">we'll take it from there.</span>
           </h2>
         </div>
 
-        {/* bento grid */}
-        <div className="mt-14 grid grid-cols-1 gap-3 lg:mt-20 lg:grid-cols-4 lg:auto-rows-[220px] lg:gap-4">
-          {/* A — video, tall left. Kept dark/white — scrim over video needs fixed contrast regardless of site theme. */}
-          <article className="group relative isolate flex overflow-hidden rounded-[1.4rem] lg:col-span-2 lg:row-span-2">
+        <div className="wcu-bento-grid mt-14 grid grid-cols-1 gap-3 lg:mt-20 lg:grid-cols-4 lg:auto-rows-[220px] lg:gap-4">
+          <article className="wcu-bento-card group relative isolate flex overflow-hidden rounded-[1.4rem] lg:col-span-2 lg:row-span-2">
             <video
               aria-hidden
               autoPlay
@@ -45,7 +99,7 @@ export default function WhyChooseUs() {
                   <h3 className="mb-2 text-xl tracking-[-0.02em] text-white">
                     Step inside the lab
                   </h3>
-                  <p className="med-font text-sm leading-6 text-white/75">
+                  <p className="med-font text-sm leading-normal text-white/75">
                     No stock footage — this is Kubwa on a Tuesday afternoon.
                     See the machines, the mentors, and the people at them.
                   </p>
@@ -61,27 +115,24 @@ export default function WhyChooseUs() {
             </div>
           </article>
 
-          {/* B — mentors, wide top right. Same reasoning — image + scrim needs fixed white text. */}
-          <article className="group relative isolate flex overflow-hidden rounded-[1.4rem] lg:col-span-2 lg:row-span-1">
-            <Image
+          <article className="wcu-bento-card group relative isolate bg-black flex overflow-hidden rounded-[1.4rem] lg:col-span-2 lg:row-span-1">
+            {/* <Image
               src="/cover4.jpg"
               alt=""
               fill
               className="scale-[1.08] object-cover transition-transform duration-500 group-hover:scale-[1.14]"
-            />
-            <div className="absolute inset-0 bg-black/45" />
-            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
+            /> */}
+           
             <div className="relative z-10 flex w-full flex-col p-5 sm:p-6">
-              <span className="text-[0.75rem] uppercase tracking-[0.14em] text-white/60">
-                40+ mentors
+              <span className="med-font text-[0.75rem]  tracking-[0.14em] text-white/60">
+                40+ Mentors
               </span>
               <div className="mt-auto flex items-end justify-between gap-5">
                 <div className="max-w-[24rem]">
                   <h3 className="mb-2 text-xl tracking-[-0.02em] text-white">
                     Expert mentors
                   </h3>
-                  <p className="med-font text-sm leading-6 text-white/75">
+                  <p className="med-font text-sm leading-normal text-white/75">
                     Working engineers and designers sit with you, not a
                     forum thread. Office hours, four days a week.
                   </p>
@@ -97,39 +148,36 @@ export default function WhyChooseUs() {
             </div>
           </article>
 
-          {/* C — free internet, small */}
-          <article className="flex flex-col justify-between rounded-[1.4rem] bg-surface p-5 sm:p-6">
+          <article className="wcu-bento-card flex flex-col justify-between rounded-[1.4rem] bg-surface p-5 sm:p-6">
             <div className="grid size-11 place-items-center rounded-full bg-foreground">
               <Wifi className="size-5 text-background" />
             </div>
             <div>
-              <h3 className="mb-1 mt-4 text-lg tracking-[-0.02em] text-foreground">
+              <h3 className="mb-1 mt-8 med-font text-lg tracking-[-0.02em] text-foreground">
                 Free internet
               </h3>
-              <p className="med-font text-sm leading-6 text-muted">
-                1 Gbps shared, no throttling, no login screen.
+              <p className="med-font text-sm  leading-normal text-muted-foreground">
+               Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit harum quibusdam earum iure lib
               </p>
             </div>
           </article>
 
-          {/* D — flexible learning, small */}
-          <article className="flex flex-col justify-between rounded-[1.4rem] bg-surface p-5 sm:p-6">
+          <article className="wcu-bento-card flex flex-col justify-between rounded-[1.4rem] bg-surface p-5 sm:p-6">
             <div className="grid size-11 place-items-center rounded-full bg-foreground">
               <Zap className="size-5 text-background" />
             </div>
             <div>
-              <h3 className="mb-1 text-lg tracking-[-0.02em] text-foreground">
+              <h3 className="mb-1 mt-8 med-font text-lg tracking-[-0.02em] text-foreground">
                 Flexible hours
               </h3>
-              <p className="med-font text-sm leading-6 text-muted">
-                Lab access 24/7 — come in before work, stay after.
+              <p className="med-font text-sm leading-normal text-muted-foreground">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus illum molestiae dignissimos totam a
               </p>
             </div>
           </article>
         </div>
 
-        {/* trust row — four standalone cards, last one carries a visual */}
-        <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        <div className="wcu-trust-row mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
           {[
             { icon: Globe, label: "Build a Real Website" },
             { icon: Smartphone, label: "Build a Mobile App" },
@@ -139,24 +187,22 @@ export default function WhyChooseUs() {
             return (
               <div
                 key={item.label}
-                className="flex flex-col justify-between rounded-[1.4rem] bg-surface p-6 min-h-[11rem]"
+                className="wcu-trust-card flex flex-col justify-between rounded-[1.4rem] bg-surface p-6 min-h-[11rem]"
               >
                 <Icon className="size-8 text-foreground" strokeWidth={1.75} />
-                <h3 className="mt-6 text-xl sm:text-2xl leading-snug tracking-[-0.04em] text-foreground">
+                <h3 className="mt-6 text-lg med-font sm:text-2xl leading-snug !tracking-[-0.06em] text-foreground">
                   {item.label}
                 </h3>
               </div>
             );
           })}
 
-          {/* fourth card — the one physical lab, carries the photo */}
-          <div className="relative flex flex-col justify-between overflow-hidden rounded-[1.4rem] bg-surface p-6 min-h-[11rem]">
-            <h3 className="relative z-10 max-w-[9rem] text-2xl leading-snug tracking-[-0.02em] text-foreground">
-              One Physical Lab in Kubwa
+          <div className="wcu-trust-card relative flex flex-col justify-between overflow-hidden rounded-[1.4rem] bg-surface p-6 min-h-[11rem]">
+            <HouseHeart  className="size-8 text-foreground" strokeWidth={1.75} />
+            <h3 className="relative z-10 med-font text-xl sm:text-2xl leading-snug !tracking-[-0.06em] text-foreground">
+              Physical Lab Abuja
             </h3>
-            <div className="absolute -bottom-6 -right-6 size-32 overflow-hidden rounded-2xl opacity-90">
-              <Image src="/arcadia-arcadia.png" alt="" fill className="object-cover" />
-            </div>
+            
           </div>
         </div>
       </div>

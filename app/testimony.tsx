@@ -84,7 +84,7 @@ function Testimonials() {
                 COURSE <span className="ml-1 text-foreground">{t.course}</span>
               </p>
 
-              <blockquote className="mt-7 text-foreground text-xl leading-6">
+              <blockquote className="mt-7 med-font ext-foreground text-xl leading-6">
                 {t.quote}
               </blockquote>
 

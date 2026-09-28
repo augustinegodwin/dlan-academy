@@ -29,14 +29,14 @@ export default function SignInSection() {
     <section className="flex w-full flex-1 justify-center rounded-[28px] bg-surface">
       <div className="flex w-full flex-col items-stretch justify-center gap-6 px-6 py-16 sm:max-w-[420px] sm:gap-8">
             <Image
-            src="/logo.png"
+            src="/firebase.png"
             alt=""
-            width={18}
-            height={18}
-            className="size-10 shrink-0 self-center"
+            width={100}
+            height={100}
+            className="size-16 shrink-0 self-center"
             />
         <div>
-          <h1 className="text-center text-2xl font-[stack-sans-bold] tracking-tight text-foreground text-balance">
+          <h1 className="text-center sm:text-3xl text-2xl font-[stack-sans-bold] tracking-tight text-foreground text-balance">
             Create your free account{" "}
           </h1>
           <p className="text-center med-font text-sm text-muted-foreground">

@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Code2,
   FileSpreadsheet,
@@ -56,9 +59,8 @@ const COURSES: Course[] = [
       { src: html5, name: "HTML5" },
       { src: css, name: "CSS" },
       { src: javascript, name: "JavaScript" },
-            { src: python, name: "Python" },
+      { src: python, name: "Python" },
       { src: java, name: "Java" },
-
     ],
   },
   {
@@ -158,9 +160,58 @@ const COURSES: Course[] = [
 ];
 
 export default function CoursesGrid() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const track = trackRef.current;
+      const section = sectionRef.current;
+      const container = containerRef.current;
+      if (!track || !section || !container) return;
+
+      // Calculate exact distance required so that the track stops 
+      // precisely when the last card's right boundary aligns with the container's right boundary.
+      const getScrollDistance = () => {
+        const trackWidth = track.scrollWidth;
+        const containerWidth = container.clientWidth;
+        return Math.max(0, trackWidth - containerWidth);
+      };
+
+      const tween = gsap.to(track, {
+        x: () => -getScrollDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${getScrollDistance()}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="courses" className="mx-auto w-full px-3 sm:px-6 pt-8 md:px-10">
-      <div className="mx-auto max-w-[1320px]">
+    <section
+      id="courses"
+      ref={sectionRef}
+      className="relative w-full overflow-hidden py-8"
+    >
+      {/* Header Container */}
+      <div className="mx-auto max-w-[1320px] px-3 sm:px-6 md:px-10">
         <div className="animate-fade-up text-center">
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Our courses
@@ -168,25 +219,39 @@ export default function CoursesGrid() {
           <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground">
             Pick a path.
             <br />
-            <span className="text-muted-foreground ">Show up and start building.</span>
+            <span className="text-muted-foreground">Show up and start building.</span>
           </h2>
-          <p className="max-w-2xl m-auto med-font mt-3 text-muted-foreground ">
+          <p className="max-w-2xl m-auto med-font mt-3 text-muted-foreground">
             Eight programs, taught in person by people who work in the
             field — not read off a slide. Small cohorts, real machines,
             and a mentor who actually knows your name by week two.
           </p>
         </div>
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      </div>
+
+      {/* Cards Slider Track Container - shares the exact max-w and horizontal padding structure */}
+      <div
+        ref={containerRef}
+        className="mx-auto mt-14 max-w-[1320px] px-3 sm:px-6 md:px-10 "
+      >
+        <div
+          ref={trackRef}
+          className="flex w-max gap-4"
+        >
           {COURSES.map((item, index) => (
-            <CourseCard
+            <div
               key={index}
-              category={item.slug}
-              title={item.title}
-              description={item.description}
-              duration={item.duration}
-              mentor={item.slug}
-              tools={item.tools}
-            />
+              className="w-[78vw] shrink-0 sm:w-[45vw] md:w-[340px] lg:w-[320px]"
+            >
+              <CourseCard
+                category={item.slug}
+                title={item.title}
+                description={item.description}
+                duration={item.duration}
+                mentor={item.slug}
+                tools={item.tools}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -238,14 +303,14 @@ function CourseCard({
   return (
     <a
       href="#enroll"
-      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-sm transition-colors "
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-sm transition-colors"
     >
       <div className="relative h-30 overflow-hidden">
         <Image
           className="absolute inset-0 z-10 size-full object-cover opacity-70"
           src="/cover2.jpg"
           width={500}
-          height={500}  
+          height={500}
           alt={title}
         />
         <span className="absolute left-3 top-3 z-20 rounded-full bg-background/85 px-2.5 py-1 text-[11px] font-medium text-foreground/70 backdrop-blur-sm">
@@ -257,14 +322,13 @@ function CourseCard({
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        {/* Tool stack — clean chip row, not overlapping avatars */}
         {tools.length > 0 && (
           <div className="mb-3 flex items-center gap-1.5">
             {visible.map((tool) => (
               <div
                 key={tool.name}
                 title={tool.name}
-                className="grid size-7 place-items-center rounded-md  bg-background p-1.5 shadow-sm"
+                className="grid size-7 place-items-center rounded-md bg-background p-1.5 shadow-sm"
               >
                 <Image
                   src={tool.src}
@@ -284,7 +348,7 @@ function CourseCard({
         <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
           {title}
         </h3>
-        <p className=" mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+        <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
         <div className="med-font mt-auto flex items-center gap-2 border-t border-border pt-4 text-[12px] text-muted-foreground">
