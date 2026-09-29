@@ -157,7 +157,7 @@ export default function WhyChooseUs() {
                 Free internet
               </h3>
               <p className="med-font text-sm  leading-normal text-muted-foreground">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit harum quibusdam earum iure lib
+               Lorem ipsum dolor sit amet consectetur adipisicing elit. 
               </p>
             </div>
           </article>
@@ -171,7 +171,7 @@ export default function WhyChooseUs() {
                 Flexible hours
               </h3>
               <p className="med-font text-sm leading-normal text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus illum molestiae dignissimos totam a
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
               </p>
             </div>
           </article>

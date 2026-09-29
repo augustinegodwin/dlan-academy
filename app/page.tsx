@@ -13,7 +13,7 @@ export default function Home() {
     <main className="bg-background text-foreground">
       {/* ---------- NAV — fixed, floats over the hero card ---------- */}
       <nav className="fixed inset-x-0 top-0 z-30 mx-auto flex max-w-[1320px] items-center justify-between px-6 py-6 md:px-10">
-        <a href="#hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" className="rounded-full title-font bg-background px-5 py-1.5 text-sm tracking-tight ring-1 ring-border backdrop-blur-md">
+        <a href="#" className="rounded-full title-font bg-background px-5 py-1.5 text-sm tracking-tight ring-1 ring-border backdrop-blur-md">
           DLAN ACADEMY
         </a>
 
@@ -62,7 +62,7 @@ export default function Home() {
             NG <span aria-hidden>▾</span>
           </div>
           <a
-            href="#enroll"
+            href="/sign-in"
             className="rounded-full med-font bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
           >
             Enroll
