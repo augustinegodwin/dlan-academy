@@ -153,7 +153,7 @@
 }
 @font-face {
   font-family: "pally-medium";
-  src: url(./assets/fonts/OpenRunde-Semibold.otf);
+  src: url(./assets/fonts/StackSansNotch-VariableFont_wght.ttf);
 }
 
 html {
@@ -170,6 +170,7 @@ body {
 .med-font {
   font-family: "pally-medium";
   letter-spacing: -0.05em !important;
+  font-weight: 400;
 }
 .title-font {
   font-family: "stack-sans-medium";

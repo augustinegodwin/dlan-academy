@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function WhyChooseUs() {
@@ -16,38 +16,44 @@ export default function WhyChooseUs() {
 
   useGSAP(
     () => {
+      // Clean, single-fire smooth entry for heading
       gsap.from(".wcu-heading", {
         opacity: 0,
-        y: 24,
+        y: 25,
         duration: 0.8,
-        ease: "power3.out",
+        ease: "power2.out",
         scrollTrigger: {
           trigger: ".wcu-heading",
-          start: "top 90%",
+          start: "top 88%",
+          toggleActions: "play none none none",
         },
       });
 
+      // Subtle, lag-free stagger entry for bento cards
       gsap.from(".wcu-bento-card", {
         opacity: 0,
-        y: 40,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.12,
+        y: 30,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.08,
         scrollTrigger: {
           trigger: ".wcu-bento-grid",
-          start: "top 90%",
+          start: "top 85%",
+          toggleActions: "play none none none",
         },
       });
 
+      // Smooth entry for trust row cards
       gsap.from(".wcu-trust-card", {
         opacity: 0,
-        y: 30,
+        y: 25,
         duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.1,
+        ease: "power2.out",
+        stagger: 0.08,
         scrollTrigger: {
           trigger: ".wcu-trust-row",
-          start: "top 90%",
+          start: "top 88%",
+          toggleActions: "play none none none",
         },
       });
     },
@@ -116,13 +122,6 @@ export default function WhyChooseUs() {
           </article>
 
           <article className="wcu-bento-card group relative isolate bg-black flex overflow-hidden rounded-[1.4rem] lg:col-span-2 lg:row-span-1">
-            {/* <Image
-              src="/cover4.jpg"
-              alt=""
-              fill
-              className="scale-[1.08] object-cover transition-transform duration-500 group-hover:scale-[1.14]"
-            /> */}
-           
             <div className="relative z-10 flex w-full flex-col p-5 sm:p-6">
               <span className="med-font text-[0.75rem]  tracking-[0.14em] text-white/60">
                 40+ Mentors
@@ -202,7 +201,6 @@ export default function WhyChooseUs() {
             <h3 className="relative z-10 med-font text-xl sm:text-2xl leading-snug !tracking-[-0.06em] text-foreground">
               Physical Lab Abuja
             </h3>
-            
           </div>
         </div>
       </div>

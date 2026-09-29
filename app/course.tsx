@@ -328,7 +328,7 @@ function CourseCard({
               <div
                 key={tool.name}
                 title={tool.name}
-                className="grid size-7 place-items-center rounded-md bg-background p-1.5 shadow-sm"
+                className="grid size-7 place-items-center rounded-md bg-background p-1.5 border border-gray-200"
               >
                 <Image
                   src={tool.src}
