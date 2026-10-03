@@ -109,7 +109,7 @@ export default function Hero() {
                   Book a Visit
                 </a>
                 <a
-                  href="#courses"
+                  href="/courses"
                   className="hero-btn inline-flex h-9 w-full items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[0.875rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:w-auto"
                 >
                   What are the courses

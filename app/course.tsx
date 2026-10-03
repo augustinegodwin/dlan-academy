@@ -303,7 +303,7 @@ function CourseCard({
   return (
     <a
       href="#enroll"
-      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface shadow-sm transition-colors"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface  transition-colors"
     >
       <div className="relative h-30 overflow-hidden">
         <Image

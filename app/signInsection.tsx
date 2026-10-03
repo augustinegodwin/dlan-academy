@@ -26,7 +26,7 @@ export default function SignInSection() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="flex w-full flex-1 justify-center rounded-[28px] border border-gray-200  bg-surface">
+    <section className="flex w-full flex-1 justify-center rounded-[28px] bg-surface">
       <div className="flex w-full flex-col items-stretch justify-center gap-6 px-6 py-16 sm:max-w-[420px] sm:gap-8">
             <Image
             src="/firebase.png"
