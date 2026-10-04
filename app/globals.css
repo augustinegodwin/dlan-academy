@@ -148,15 +148,15 @@
 
 @font-face {
   font-family: "stack-sans-bold";
-  src: url(./assets/fonts/FlowRounded-Regular.ttf );
+  src: url(./assets/fonts/SFRBold.ttf  );
 }
 @font-face {
   font-family: "stack-sans-medium";
-  src: url(./assets/fonts/FlowRounded-Regular.ttf );
+  src: url(./assets/fonts/SFRBold.ttf  );
 }
 @font-face {
   font-family: "pally-medium";
-  src: url(./assets/fonts/FlowRounded-Regular.ttf );
+  src: url(./assets/fonts/SFRBold.ttf  );
 }
 
 html {

@@ -65,7 +65,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Page box */}
       <main className="min-h-0 min-w-0 flex-1 lg:p-2">
-        <div className="h-full overflow-y-auto bg-background lg:rounded-2xl lg:border lg:border-gray-200 lg:shadow-sm">
+        <div className="h-full overflow-y-auto bg-background lg:rounded-2xl lg:border lg:border-gray-200 ">
           <div className="mx-auto w-full max-w-6xl px-6 py-8 sm:px-10">{children}</div>
         </div>
       </main>
