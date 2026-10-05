@@ -1,7 +1,7 @@
 import { GraduationCap, Star, Wifi, Feather } from "lucide-react";
 import { COURSE_CATEGORIES } from "../../lib/courses";
 import CategorySection from "../coursesCategories";
-import Footer from "../ftsection.tsx";
+import Footer from "../ftsection";
 
 export default function CoursesPage() {
   const totalCourses = COURSE_CATEGORIES.reduce((sum, c) => sum + c.courses.length, 0);

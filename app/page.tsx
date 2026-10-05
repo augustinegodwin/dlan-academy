@@ -1,4 +1,4 @@
-import { Feather, GraduationCap, Star, Wifi } from "lucide-react";
+import { Feather, GraduationCap, Sparkles, MessageSquareQuote, Mail , Star, Wifi } from "lucide-react";
 import AboutReveal from "./AboutReveal";
 import FAQSection from "./faq";
 import babayaga from "../app/assets/images/arcadia-arcadia.png"
@@ -9,66 +9,48 @@ import ContactSection from "./footer";
 import Footer from "./ftsection";
 import Hero from "./hero";
   export default function Home() {
+    const navLinks = [
+  { href: "#courses", label: "Courses", icon: GraduationCap },
+  { href: "#offer", label: "Why Us", icon: Sparkles },
+  { href: "#reviews", label: "Reviews", icon: MessageSquareQuote },
+  { href: "#contact", label: "Contact", icon: Mail },
+];
   return (
     <main className="bg-background text-foreground">
       {/* ---------- NAV — fixed, floats over the hero card ---------- */}
       <nav className="fixed inset-x-0 top-0 z-30 mx-auto flex max-w-[1320px] items-center justify-between px-6 py-6 md:px-10">
-        <a href="#" className="rounded-full title-font bg-background px-5 py-1.5 text-sm tracking-tight ring-1 ring-border backdrop-blur-md">
-          DLAN ACADEMY
-        </a>
+  <a
+    href="#"
+    className="title-font rounded-full bg-background px-5 py-1.5 text-sm tracking-tight ring-1 ring-border backdrop-blur-md"
+  >
+    DLAN ACADEMY
+  </a>
 
-        <div className="hidden items-center gap-1 rounded-full bg-white/75
-         px-1 py-1 text-sm font-medium shadow-sm backdrop-blur-md md:flex">
-          <a
-            href="#courses"
-            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
-          >
-            <span aria-hidden className="text-xs">
-              <GraduationCap size={20}/>
-            </span>
-            Courses
-          </a>
-          <a
-            href="#offer"
-            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
-          >
-            <span aria-hidden className="text-xs">
-               <Wifi size={20}/>
-            </span>
-            Our Offer
-          </a>
-          <a
-            href="#reviews"
-            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
-          >
-            <span aria-hidden >
-                <Star size={20}/>
-            </span>
-            Reviews
-          </a>
-          <a
-            href="#contact"
-            className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
-          >
-            <span aria-hidden className="text-xs">
-                <Feather size={20}/>
-            </span>
-            Contact
-          </a>
-        </div>
+  <div className="hidden items-center gap-1 rounded-full bg-background/75 p-1 text-sm font-medium shadow-sm backdrop-blur-md md:flex">
+    {navLinks.map(({ href, label, icon: Icon }) => (
+      <a
+        key={href}
+        href={href}
+        className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
+      >
+        <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+        {label}
+      </a>
+    ))}
+  </div>
 
-        <div className="flex items-center gap-2.5">
-          <div className="hidden items-center gap-1 rounded-full bg-overlay px-4 py-1.5 text-sm text-foreground/70 ring-1 ring-border backdrop-blur-md sm:flex">
-            NG <span aria-hidden>▾</span>
-          </div>
-          <a
-            href="/sign-in"
-            className="rounded-full med-font bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
-          >
-            Enroll
-          </a>
-        </div>
-      </nav>
+  <div className="flex items-center gap-2.5">
+    <div className="hidden items-center gap-1 rounded-full bg-overlay px-4 py-1.5 text-sm text-foreground/70 ring-1 ring-border backdrop-blur-md sm:flex">
+      NG <span aria-hidden>▾</span>
+    </div>
+    <a
+      href="/sign-in"
+      className="med-font rounded-full bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
+    >
+      Enroll
+    </a>
+  </div>
+</nav>
 
       {/* ---------- HERO — inset rounded video card, matches the captured markup ---------- */}
       {/* Intentionally kept on a fixed dark palette (white text over video/gradient) — 
