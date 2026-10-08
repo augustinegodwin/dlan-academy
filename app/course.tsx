@@ -287,6 +287,7 @@ export default function CoursesGrid() {
                 mentor={item.slug}
                 tools={item.tools}
                 price={item.price}
+                months={item.months}
               />
             </div>
           ))}
