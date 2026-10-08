@@ -26,6 +26,8 @@ export type Course = {
   tools: Tool[];
   /** Price per month in naira (whole number). Use 0 for a free course. */
   price: number;
+  /** How many months the course runs. */
+  months: number;
 };
 
 export type CourseCategory = {
@@ -53,6 +55,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Chidi Okonkwo",
         tools: [{ src: python, name: "Python" }],
         price: 15000,
+        months: 1,
       },
       {
         id: "prog-2",
@@ -67,6 +70,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: css, name: "CSS" },
         ],
         price: 15000,
+        months: 1,
       },
       {
         id: "prog-3",
@@ -80,6 +84,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: java, name: "Java" },
         ],
         price: 25000,
+        months: 1,
       },
       {
         id: "prog-4",
@@ -90,6 +95,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Chidi Okonkwo",
         tools: [{ src: java, name: "Java" }],
         price: 20000,
+        months: 1,
       },
     ],
   },
@@ -109,6 +115,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Ngozi Adeyemi",
         tools: [{ src: excel, name: "Excel" }],
         price: 8000,
+        months: 1,
       },
       {
         id: "office-2",
@@ -119,6 +126,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Ngozi Adeyemi",
         tools: [{ src: word, name: "Word" }],
         price: 8000,
+        months: 1,
       },
       {
         id: "office-3",
@@ -129,6 +137,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Ngozi Adeyemi",
         tools: [{ src: powerpoint, name: "PowerPoint" }],
         price: 8000,
+        months: 1,
       },
     ],
   },
@@ -148,6 +157,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Lara Hassan",
         tools: [{ src: photoshop, name: "Photoshop" }],
         price: 18000,
+        months: 1,
       },
       {
         id: "design-2",
@@ -162,6 +172,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: canva, name: "Canva" },
         ],
         price: 30000,
+        months: 1,
       },
       {
         id: "design-3",
@@ -172,6 +183,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Lara Hassan",
         tools: [{ src: canva, name: "Canva" }],
         price: 28000,
+        months: 1,
       },
     ],
   },
@@ -191,6 +203,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Emeka Johnson",
         tools: [],
         price: 25000,
+        months: 1,
       },
       {
         id: "net-2",
@@ -201,6 +214,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Emeka Johnson",
         tools: [],
         price: 30000,
+        months: 1,
       },
       {
         id: "net-3",
@@ -211,6 +225,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Emeka Johnson",
         tools: [],
         price: 35000,
+        months: 1,
       },
     ],
   },
@@ -233,6 +248,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: claudeIcon, name: "Claude" },
         ],
         price: 10000,
+        months: 1,
       },
       {
         id: "ai-2",
@@ -246,6 +262,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: claudeIcon, name: "Claude" },
         ],
         price: 12000,
+        months: 1,
       },
       {
         id: "ai-3",
@@ -260,6 +277,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: excel, name: "Excel" },
         ],
         price: 18000,
+        months: 1,
       },
     ],
   },
@@ -279,6 +297,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Femi Alabi",
         tools: [],
         price: 20000,
+        months: 1,
       },
       {
         id: "data-2",
@@ -289,6 +308,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Femi Alabi",
         tools: [{ src: python, name: "Python" }],
         price: 28000,
+        months: 1,
       },
       {
         id: "data-3",
@@ -299,6 +319,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Femi Alabi",
         tools: [{ src: tableau, name: "Tableau" }],
         price: 22000,
+        months: 1,
       },
       {
         id: "data-4",
@@ -309,6 +330,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Femi Alabi",
         tools: [{ src: powerbi, name: "Power BI" }],
         price: 18000,
+        months: 1,
       },
     ],
   },
@@ -328,6 +350,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Kelechi Nwosu",
         tools: [],
         price: 8000,
+        months: 1,
       },
       {
         id: "yt-2",
@@ -338,6 +361,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Kelechi Nwosu",
         tools: [],
         price: 15000,
+        months: 1,
       },
       {
         id: "yt-3",
@@ -348,6 +372,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Kelechi Nwosu",
         tools: [],
         price: 12000,
+        months: 1,
       },
     ],
   },
@@ -367,6 +392,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Zainab Yusuf",
         tools: [{ src: canva, name: "Canva" }],
         price: 12000,
+        months: 1,
       },
       {
         id: "mkt-2",
@@ -377,6 +403,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Zainab Yusuf",
         tools: [],
         price: 12000,
+        months: 1,
       },
       {
         id: "mkt-3",
@@ -387,6 +414,7 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Zainab Yusuf",
         tools: [],
         price: 15000,
+        months: 1,
       },
       {
         id: "mkt-4",
@@ -397,12 +425,12 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         instructor: "Zainab Yusuf",
         tools: [],
         price: 20000,
+        months: 1,
       },
     ],
   },
 ];
 
-/** Cheapest course in a category, handy for "From ₦8,000" labels. */
 export function getStartingPrice(category: CourseCategory): number {
   return Math.min(...category.courses.map((c) => c.price));
 }
