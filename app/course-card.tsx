@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PriceTag from "@/lib/price-tag";
 
 function CourseArrowIcon() {
   return (
@@ -29,6 +30,8 @@ export default function CourseCard({
   startDate,
   duration,
   tools,
+  price,
+  months,
 }: {
   category: string;
   title: string;
@@ -37,6 +40,10 @@ export default function CourseCard({
   startDate?: string;
   duration: string;
   tools: { src: any; name: string }[];
+  /** Price per month in naira (whole number). 0 renders as "Free". */
+  price?: number;
+  /** Length of the track in months (price is per month). Shows "for N months" when > 1. */
+  months: number;
 }) {
   const visible = tools.slice(0, 4);
   const extra = tools.length - visible.length;
@@ -82,12 +89,16 @@ export default function CourseCard({
           </div>
         )}
 
-        <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
-          {title}
-        </h3>
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
+            {title}
+          </h3>
+          {price !== undefined && <PriceTag price={price} months={months} />}
+        </div>
         <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
+
         <div className="med-font mt-auto flex items-center gap-2 border-t border-border pt-4 text-[12px] text-muted-foreground">
           <span className="text-foreground">{mentor}</span>
           <span aria-hidden>·</span>

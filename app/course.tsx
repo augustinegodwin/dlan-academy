@@ -33,6 +33,11 @@ import claude from "../app/assets/icons/claude-ai.svg";
 import chatgpt from "../app/assets/icons/openai-chatgpt (1).svg";
 import tableau from "../app/assets/icons/tableau.svg";
 import powerbi from "../app/assets/icons/microsoft-power-bi.svg";
+import CourseCard from "./course-card";
+// Keep your existing imports (lucide icons, tool svgs) above this line.
+import { formatNGN } from "@/lib/format-price";
+
+// Keep your existing imports (lucide icons, tool svgs) above this line.
 
 type Course = {
   slug: string;
@@ -40,6 +45,10 @@ type Course = {
   description: string;
   duration: string;
   rating: string;
+  /** Price per month in naira (whole number). Use 0 for free. */
+  price: number;
+  /** How many months the track runs. */
+  months: number;
   icon: React.ReactNode;
   iconBg: string;
   tools: { src: any; name: string }[];
@@ -53,6 +62,8 @@ const COURSES: Course[] = [
       "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
     duration: "10 weeks",
     rating: "4.9",
+    price: 22000,
+    months: 3,
     icon: <Code2 className="size-6 text-blue-600" />,
     iconBg: "bg-blue-100",
     tools: [
@@ -70,6 +81,8 @@ const COURSES: Course[] = [
       "Master Word, Excel, PowerPoint, Outlook and become proficient in essential business productivity tools.",
     duration: "4 weeks",
     rating: "4.7",
+    price: 20000,
+    months: 1,
     icon: <FileSpreadsheet className="size-6 text-emerald-600" />,
     iconBg: "bg-emerald-100",
     tools: [
@@ -86,6 +99,8 @@ const COURSES: Course[] = [
       "Create stunning visuals with Photoshop, CorelDraw, and Canva. Learn logo design, branding, and UI/UX principles.",
     duration: "8 weeks",
     rating: "4.8",
+    price: 33000,
+    months: 2,
     icon: <Palette className="size-6 text-purple-600" />,
     iconBg: "bg-purple-100",
     tools: [
@@ -101,6 +116,8 @@ const COURSES: Course[] = [
       "Understand network protocols, infrastructure, routing, switching, and prepare for CCNA certification.",
     duration: "12 weeks",
     rating: "4.7",
+    price: 27000,
+    months: 3,
     icon: <Network className="size-6 text-indigo-600" />,
     iconBg: "bg-indigo-100",
     tools: [],
@@ -112,6 +129,8 @@ const COURSES: Course[] = [
       "Master the art of crafting effective prompts for ChatGPT, Claude, and other AI tools to maximize productivity.",
     duration: "4 weeks",
     rating: "4.9",
+    price: 35000,
+    months: 1,
     icon: <Sparkles className="size-6 text-white" />,
     iconBg: "bg-gradient-to-br from-cyan-400 to-rose-300",
     tools: [
@@ -126,6 +145,8 @@ const COURSES: Course[] = [
       "Learn Excel, SQL, Python, and data visualization with Tableau and Power BI to extract insights from data.",
     duration: "12 weeks",
     rating: "4.8",
+    price: 25000,
+    months: 3,
     icon: <BarChart3 className="size-6 text-rose-600" />,
     iconBg: "bg-rose-100",
     tools: [
@@ -142,6 +163,8 @@ const COURSES: Course[] = [
       "Build profitable YouTube channels using automation tools, content strategies, and monetization techniques.",
     duration: "4 weeks",
     rating: "4.7",
+    price: 30000,
+    months: 1,
     icon: <Video className="size-6 text-orange-600" />,
     iconBg: "bg-orange-100",
     tools: [],
@@ -153,12 +176,25 @@ const COURSES: Course[] = [
       "Learn strategies and techniques for promoting products and services online, including social media, email, and search engine marketing.",
     duration: "8 weeks",
     rating: "4.7",
+    price: 25000,
+    months: 2,
     icon: <Video className="size-6 text-orange-600" />,
     iconBg: "bg-orange-100",
     tools: [],
   },
 ];
 
+/* ------------------------------------------------------------------
+   In your card JSX, add this where you want the price to appear
+   (e.g. above the duration/rating row):
+
+   <div className="flex items-baseline gap-1.5">
+     <span className="text-lg font-semibold tracking-[-0.04em] text-foreground">
+       {formatNGN(course.price)}
+     </span>
+     <span className="text-[11px] text-muted-foreground">full track</span>
+   </div>
+------------------------------------------------------------------- */
 export default function CoursesGrid() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -216,7 +252,7 @@ export default function CoursesGrid() {
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Our courses
           </span>
-          <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground">
+          <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground font-[stack-sans-bold]">
             Pick a path.
             <br />
             <span className="text-muted-foreground">Show up and start building.</span>
@@ -250,6 +286,7 @@ export default function CoursesGrid() {
                 duration={item.duration}
                 mentor={item.slug}
                 tools={item.tools}
+                price={item.price}
               />
             </div>
           ))}
@@ -280,86 +317,86 @@ function CourseArrowIcon() {
   );
 }
 
-function CourseCard({
-  category,
-  title,
-  description,
-  mentor,
-  startDate,
-  duration,
-  tools,
-}: {
-  category: string;
-  title: string;
-  description: string;
-  mentor: string;
-  startDate?: string;
-  duration: string;
-  tools: { src: any; name: string }[];
-}) {
-  const visible = tools.slice(0, 4);
-  const extra = tools.length - visible.length;
+// function CourseCard({
+//   category,
+//   title,
+//   description,
+//   mentor,
+//   startDate,
+//   duration,
+//   tools,
+// }: {
+//   category: string;
+//   title: string;
+//   description: string;
+//   mentor: string;
+//   startDate?: string;
+//   duration: string;
+//   tools: { src: any; name: string }[];
+// }) {
+//   const visible = tools.slice(0, 4);
+//   const extra = tools.length - visible.length;
 
-  return (
-    <a
-      href="#enroll"
-      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface  transition-colors"
-    >
-      <div className="relative h-30 overflow-hidden">
-        <Image
-          className="absolute inset-0 z-10 size-full object-cover opacity-70"
-          src="/cover2.jpg"
-          width={500}
-          height={500}
-          alt={title}
-        />
-        <span className="absolute left-3 top-3 z-20 rounded-full bg-background/85 px-2.5 py-1 text-[11px] font-medium text-foreground/70 backdrop-blur-sm">
-          {category}
-        </span>
-        <span className="absolute bottom-3 right-3 z-20 grid size-8 place-items-center rounded-full bg-background text-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:opacity-100">
-          <CourseArrowIcon />
-        </span>
-      </div>
+//   return (
+//     <a
+//       href="#enroll"
+//       className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface  transition-colors"
+//     >
+//       <div className="relative h-30 overflow-hidden">
+//         <Image
+//           className="absolute inset-0 z-10 size-full object-cover opacity-70"
+//           src="/cover2.jpg"
+//           width={500}
+//           height={500}
+//           alt={title}
+//         />
+//         <span className="absolute left-3 top-3 z-20 rounded-full bg-background/85 px-2.5 py-1 text-[11px] font-medium text-foreground/70 backdrop-blur-sm">
+//           {category}
+//         </span>
+//         <span className="absolute bottom-3 right-3 z-20 grid size-8 place-items-center rounded-full bg-background text-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:opacity-100">
+//           <CourseArrowIcon />
+//         </span>
+//       </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        {tools.length > 0 && (
-          <div className="mb-3 flex items-center gap-1.5">
-            {visible.map((tool) => (
-              <div
-                key={tool.name}
-                title={tool.name}
-                className="grid size-7 place-items-center rounded-md bg-background p-1.5 border border-gray-200"
-              >
-                <Image
-                  src={tool.src}
-                  alt={tool.name}
-                  className="size-full object-contain"
-                />
-              </div>
-            ))}
-            {extra > 0 && (
-              <span className="grid size-7 place-items-center rounded-md border border-border bg-foreground/10 text-[10px] font-medium text-muted">
-                +{extra}
-              </span>
-            )}
-          </div>
-        )}
+//       <div className="flex flex-1 flex-col p-5">
+//         {tools.length > 0 && (
+//           <div className="mb-3 flex items-center gap-1.5">
+//             {visible.map((tool) => (
+//               <div
+//                 key={tool.name}
+//                 title={tool.name}
+//                 className="grid size-7 place-items-center rounded-md bg-background p-1.5 border border-gray-200"
+//               >
+//                 <Image
+//                   src={tool.src}
+//                   alt={tool.name}
+//                   className="size-full object-contain"
+//                 />
+//               </div>
+//             ))}
+//             {extra > 0 && (
+//               <span className="grid size-7 place-items-center rounded-md border border-border bg-foreground/10 text-[10px] font-medium text-muted">
+//                 +{extra}
+//               </span>
+//             )}
+//           </div>
+//         )}
 
-        <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
-          {title}
-        </h3>
-        <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-          {description}
-        </p>
-        <div className="med-font mt-auto flex items-center gap-2 border-t border-border pt-4 text-[12px] text-muted-foreground">
-          <span className="text-foreground">{mentor}</span>
-          <span aria-hidden>·</span>
-          <span>Starts {startDate ?? "soon"}</span>
-          <span aria-hidden className="ml-auto">
-            {duration}
-          </span>
-        </div>
-      </div>
-    </a>
-  );
-}
+//         <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
+//           {title}
+//         </h3>
+//         <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+//           {description}
+//         </p>
+//         <div className="med-font mt-auto flex items-center gap-2 border-t border-border pt-4 text-[12px] text-muted-foreground">
+//           <span className="text-foreground">{mentor}</span>
+//           <span aria-hidden>·</span>
+//           <span>Starts {startDate ?? "soon"}</span>
+//           <span aria-hidden className="ml-auto">
+//             {duration}
+//           </span>
+//         </div>
+//       </div>
+//     </a>
+//   );
+// }

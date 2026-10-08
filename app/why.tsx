@@ -179,7 +179,7 @@ export default function WhyChooseUs() {
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Why choose us
           </span>
-          <h2 className="mx-auto mt-5 max-w-[22ch] text-balance text-[clamp(2rem,6.5vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground sm:mt-6">
+          <h2 className="mx-auto mt-5 max-w-[22ch] text-balance text-[clamp(2rem,6.5vw,3.25rem)] leading-[1.05] tracking-[-0.06rem] font-[stack-sans-bold] text-foreground sm:mt-6">
             Tell us what you&apos;re building,
             <br className="hidden sm:block" />{" "}
             <span className="text-muted-foreground">

@@ -36,7 +36,7 @@ export const COURSES: Course[] = [
     slug: "programming",
     category: "Coding",
     mentor: "Chioma Eze",
-    title: "Programming",
+    title: "Web & Software Development",
     description: "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
     duration: "10 weeks",
     rating: "4.9",

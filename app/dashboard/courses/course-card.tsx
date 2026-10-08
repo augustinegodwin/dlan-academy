@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { formatNGN } from "@/lib/format-price";
 
 function CourseArrowIcon() {
   return (
@@ -33,6 +34,7 @@ export default function CourseCard({
   href = "#enroll",
   progress,
   rating,
+  price,
 }: {
   category: string;
   title: string;
@@ -41,16 +43,19 @@ export default function CourseCard({
   startDate?: string;
   duration: string;
   tools?: { src: any; name: string }[];
-  /** NEW: where the card goes (learn page if enrolled, course page if not) */
+  /** Where the card goes (learn page if enrolled, course page if not) */
   href?: string;
-  /** NEW: pass a 0-100 number for enrolled courses to show progress */
+  /** Pass a 0-100 number for enrolled courses to show progress */
   progress?: number;
-  /** NEW: e.g. "4.9" */
+  /** e.g. "4.9" */
   rating?: string;
+  /** Price in naira. Hidden for enrolled courses. */
+  price?: number;
 }) {
   const visible = tools.slice(0, 4);
   const extra = tools.length - visible.length;
   const enrolled = progress !== undefined;
+  const showPrice = !enrolled && price !== undefined;
 
   return (
     <Link
@@ -99,6 +104,17 @@ export default function CourseCard({
         <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
+
+        {showPrice && (
+          <div className="mb-3 flex items-baseline gap-1.5">
+            <span className="text-lg font-semibold tracking-[-0.04em] text-foreground">
+              {formatNGN(price)}
+            </span>
+            {price > 0 && (
+              <span className="med-font text-[11px] text-muted-foreground">one-time</span>
+            )}
+          </div>
+        )}
 
         {enrolled && (
           <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-foreground/10">
