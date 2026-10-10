@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { NOISE, getCoursePalette } from "@/lib/course-gradient";
-import type { Course } from "../lib/courses";
+import type { Course } from "../../lib/courses";
 
 export default function CourseTopicCard({ course }: { course: Course }) {
   const { title, description, level, instructor, duration, tools } = course;
