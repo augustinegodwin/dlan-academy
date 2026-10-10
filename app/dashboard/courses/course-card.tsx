@@ -80,7 +80,7 @@ export default function CourseCard({
 
       <div className="flex flex-1 flex-col p-5">
         {tools.length > 0 && (
-          <div className="mb-3 flex items-center gap-1.5">
+          <div className="mb-3 flex items-center gap-1">
             {visible.map((tool) => (
               <div
                 key={tool.name}

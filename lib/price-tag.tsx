@@ -21,10 +21,10 @@ export default function PriceTag({
 
   return (
     <div className="shrink-0 text-right leading-snug">
-      <div className="text-[16px] font-semibold tracking-[-0.04em] text-foreground">
+      <div className="text-[16px] tracking-[-0.04em] text-foreground">
         {formatNGN(price)}
         <span className="med-font ml-0.5 text-[11px] font-normal tracking-normal text-muted-foreground">
-          {months? months : ""}/mo
+          /mo
         </span>
       </div>
       {months > 1 && (

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -26,11 +25,8 @@ export default function AboutReveal() {
 
     const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
 
-    // Pull the reveal colors from CSS variables so this stays in sync
-    // with globals.css instead of hardcoding hex tuned for one theme.
-    const rootStyles = getComputedStyle(document.documentElement);
-    const dimColor = rootStyles.getPropertyValue("--muted-dim").trim() || "#d4d4d8";
-    const revealColor = rootStyles.getPropertyValue("--foreground").trim() || "#0a0a0a";
+    const dimColor = "#94a3b8"; // Slate 400 (dimmed text)
+    const revealColor = "#0f172a"; // Slate 900 / Deep dark blue (fully revealed text)
 
     const mm = gsap.matchMedia();
 
@@ -47,20 +43,20 @@ export default function AboutReveal() {
           return;
         }
 
-        // light-bg version: dim = faint light-gray, revealed = near-black
         gsap.set(words, {
-          opacity: 0.4,
-          filter: "blur(10px)",
-          y: 6,
+          opacity: 0.3,
+          filter: "blur(8px)",
+          y: 4,
           color: dimColor,
+          willChange: "opacity, filter, transform, color",
         });
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
-            end: "bottom 30%",
-            scrub: 0.4,
+            end: "bottom 35%",
+            scrub: true,
           },
         });
 
@@ -71,7 +67,7 @@ export default function AboutReveal() {
           color: revealColor,
           ease: "none",
           stagger: {
-            each: 0.05,
+            each: 0.03,
             from: "start",
           },
         });
@@ -82,12 +78,12 @@ export default function AboutReveal() {
   }, []);
 
   return (
-    <section id="story" className="bg-background py-24 sm:py-32">
+    <section id="story" className="bg-background py-20 sm:py-32">
       <div className="mx-auto max-w-[1320px] px-6 sm:px-8">
-        <div className="text-left">
+        <div className="text-center sm:text-left">
           <h2
             ref={paragraphRef}
-            className="mx-auto max-w-[1320px] text-4xl font-medium leading-tight sm:text-4xl md:text-5xl lg:text-6xl leading-[1.02] tracking-[-0.06em]"
+            className="mx-auto max-w-[1320px] text-3xl font-medium sm:text-4xl md:text-5xl lg:text-6xl leading-[1.3] sm:leading-[1.2] tracking-[-0.04em] sm:tracking-[-0.05em]"
           >
             {WORDS.map((word, i) => (
               <span key={i} data-word className="inline-block">

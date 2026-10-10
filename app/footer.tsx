@@ -204,9 +204,9 @@ export default function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden px-3 py-16 sm:px-4 sm:py-32"
+      className="relative overflow-hidden "
     >
-      <div className="mx-auto max-w-[1320px]">
+      <div className="mx-auto max-w-[1320px] px-4 py-12 sm:px-6 sm:py-20 md:px-10">
         {/* intro */}
         <div className="ct-head text-center">
           <span className="ct-badge inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">

@@ -171,9 +171,9 @@ export default function WhyChooseUs() {
     <section
       ref={sectionRef}
       id="offer"
-      className="w-full overflow-hidden bg-background px-4 py-16 text-foreground sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+      className="w-full overflow-hidden bg-background  text-foreground "
     >
-      <div className="mx-auto w-full max-w-[1320px]">
+      <div className="mx-auto w-full max-w-[1320px] px-4 py-12 sm:px-6 sm:py-20 md:px-10">
         {/* Heading */}
         <div className="wcu-heading text-center">
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
@@ -201,12 +201,12 @@ export default function WhyChooseUs() {
               playsInline
               preload="metadata"
               poster="/cover1.jpg"
-              className="wcu-video pointer-events-none absolute inset-0 size-full object-cover"
+              className="wcu-video  pointer-events-none absolute inset-0 size-full object-cover"
             >
               <source src="/lab-tour.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-black/45" />
-            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-full backdrop-blur-sm bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
             <div className="relative z-10 flex w-full flex-col p-5 sm:p-6">
               <span className="wcu-pop inline-flex w-fit items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[0.75rem] text-white/85 backdrop-blur-sm">

@@ -33,7 +33,7 @@ import Hero from "./hero";
         href={href}
         className="flex items-center gap-1.5 rounded-full px-4 py-1.5 text-foreground/70 transition hover:bg-foreground/10 hover:text-foreground"
       >
-        <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+        {/* <Icon className="size-4" strokeWidth={1.75} aria-hidden /> */}
         {label}
       </a>
     ))}

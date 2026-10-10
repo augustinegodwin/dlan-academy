@@ -123,7 +123,7 @@ export default function HomePage() {
             sizes="(min-width: 1152px) 1072px, 100vw"
             className="-z-20 object-cover object-[center_30%]"
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/5 to-black/30" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/50 via-black/5 rounded-3xl to-black/30 backdrop-blur-lg" />
 
           <div>
             <h1 className="font-[stack-sans-bold] text-2xl text-white sm:text-3xl">
@@ -136,7 +136,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-stretch">
+          <div className="flex flex-col gap-2 sm:gap-3 lg:flex-row lg:items-stretch">
             <div className="grid flex-1 grid-cols-3 gap-2 sm:gap-3">
               <StatCard
                 tint="bg-violet-100/85"

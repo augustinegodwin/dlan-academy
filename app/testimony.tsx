@@ -241,9 +241,9 @@ function Testimonials() {
     <section
       ref={sectionRef}
       id="reviews"
-      className="w-full overflow-hidden px-4 py-16 sm:px-8 sm:py-20"
+      className="w-full overflow-hidden "
     >
-      <div className="mx-auto w-full max-w-[1320px]">
+      <div className="mx-auto w-full max-w-[1320px] px-4 py-12 sm:px-6 sm:py-20 md:px-10">
         <div className="tm-head text-center">
           <span className="tm-badge inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Reviews

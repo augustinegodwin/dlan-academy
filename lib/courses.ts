@@ -24,10 +24,6 @@ export type Course = {
   level: "Beginner" | "Intermediate" | "Advanced";
   instructor: string;
   tools: Tool[];
-  /** Price per month in naira (whole number). Use 0 for a free course. */
-  price: number;
-  /** How many months the course runs. */
-  months: number;
 };
 
 export type CourseCategory = {
@@ -35,6 +31,10 @@ export type CourseCategory = {
   title: string;
   description: string;
   duration: string;
+  /** Price per month in naira for the full course. */
+  price: number;
+  /** How many months the full course runs. */
+  months: number;
   courses: Course[];
 };
 
@@ -45,6 +45,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
     duration: "10 weeks",
+    price: 25000,
+    months: 3,
     courses: [
       {
         id: "prog-1",
@@ -54,8 +56,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Chidi Okonkwo",
         tools: [{ src: python, name: "Python" }],
-        price: 15000,
-        months: 1,
       },
       {
         id: "prog-2",
@@ -69,8 +69,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: html5, name: "HTML5" },
           { src: css, name: "CSS" },
         ],
-        price: 15000,
-        months: 1,
       },
       {
         id: "prog-3",
@@ -83,8 +81,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: python, name: "Python" },
           { src: java, name: "Java" },
         ],
-        price: 25000,
-        months: 1,
       },
       {
         id: "prog-4",
@@ -94,8 +90,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Chidi Okonkwo",
         tools: [{ src: java, name: "Java" }],
-        price: 20000,
-        months: 1,
       },
     ],
   },
@@ -105,6 +99,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Master Word, Excel, PowerPoint, Outlook and become proficient in essential business productivity tools.",
     duration: "4 weeks",
+    price: 24000,
+    months: 1,
     courses: [
       {
         id: "office-1",
@@ -114,8 +110,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Ngozi Adeyemi",
         tools: [{ src: excel, name: "Excel" }],
-        price: 8000,
-        months: 1,
       },
       {
         id: "office-2",
@@ -125,8 +119,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Ngozi Adeyemi",
         tools: [{ src: word, name: "Word" }],
-        price: 8000,
-        months: 1,
       },
       {
         id: "office-3",
@@ -136,8 +128,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Ngozi Adeyemi",
         tools: [{ src: powerpoint, name: "PowerPoint" }],
-        price: 8000,
-        months: 1,
       },
     ],
   },
@@ -147,6 +137,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Create stunning visuals with Photoshop, CorelDraw, and Canva. Learn logo design, branding, and UI/UX principles.",
     duration: "8 weeks",
+    price: 38000,
+    months: 2,
     courses: [
       {
         id: "design-1",
@@ -156,8 +148,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Lara Hassan",
         tools: [{ src: photoshop, name: "Photoshop" }],
-        price: 18000,
-        months: 1,
       },
       {
         id: "design-2",
@@ -171,8 +161,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: coreldraw, name: "CorelDraw" },
           { src: canva, name: "Canva" },
         ],
-        price: 30000,
-        months: 1,
       },
       {
         id: "design-3",
@@ -182,8 +170,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Lara Hassan",
         tools: [{ src: canva, name: "Canva" }],
-        price: 28000,
-        months: 1,
       },
     ],
   },
@@ -193,6 +179,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Understand network protocols, infrastructure, routing, switching, and prepare for CCNA certification.",
     duration: "12 weeks",
+    price: 30000,
+    months: 3,
     courses: [
       {
         id: "net-1",
@@ -202,8 +190,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Emeka Johnson",
         tools: [],
-        price: 25000,
-        months: 1,
       },
       {
         id: "net-2",
@@ -213,8 +199,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Emeka Johnson",
         tools: [],
-        price: 30000,
-        months: 1,
       },
       {
         id: "net-3",
@@ -224,8 +208,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Advanced",
         instructor: "Emeka Johnson",
         tools: [],
-        price: 35000,
-        months: 1,
       },
     ],
   },
@@ -235,6 +217,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Master the art of crafting effective prompts for ChatGPT, Claude, and other AI tools to maximize productivity.",
     duration: "4 weeks",
+    price: 40000,
+    months: 1,
     courses: [
       {
         id: "ai-1",
@@ -247,8 +231,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: chatgpt, name: "ChatGPT" },
           { src: claudeIcon, name: "Claude" },
         ],
-        price: 10000,
-        months: 1,
       },
       {
         id: "ai-2",
@@ -261,8 +243,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: chatgpt, name: "ChatGPT" },
           { src: claudeIcon, name: "Claude" },
         ],
-        price: 12000,
-        months: 1,
       },
       {
         id: "ai-3",
@@ -276,8 +256,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
           { src: claudeIcon, name: "Claude" },
           { src: excel, name: "Excel" },
         ],
-        price: 18000,
-        months: 1,
       },
     ],
   },
@@ -287,6 +265,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Learn Excel, SQL, Python, and data visualization with Tableau and Power BI to extract insights from data.",
     duration: "12 weeks",
+    price: 30000,
+    months: 3,
     courses: [
       {
         id: "data-1",
@@ -296,8 +276,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Femi Alabi",
         tools: [],
-        price: 20000,
-        months: 1,
       },
       {
         id: "data-2",
@@ -307,8 +285,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Femi Alabi",
         tools: [{ src: python, name: "Python" }],
-        price: 28000,
-        months: 1,
       },
       {
         id: "data-3",
@@ -318,8 +294,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Femi Alabi",
         tools: [{ src: tableau, name: "Tableau" }],
-        price: 22000,
-        months: 1,
       },
       {
         id: "data-4",
@@ -329,8 +303,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Femi Alabi",
         tools: [{ src: powerbi, name: "Power BI" }],
-        price: 18000,
-        months: 1,
       },
     ],
   },
@@ -340,6 +312,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Build profitable YouTube channels using automation tools, content strategies, and monetization techniques.",
     duration: "4 weeks",
+    price: 35000,
+    months: 1,
     courses: [
       {
         id: "yt-1",
@@ -349,8 +323,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Kelechi Nwosu",
         tools: [],
-        price: 8000,
-        months: 1,
       },
       {
         id: "yt-2",
@@ -360,8 +332,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Kelechi Nwosu",
         tools: [],
-        price: 15000,
-        months: 1,
       },
       {
         id: "yt-3",
@@ -371,8 +341,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Advanced",
         instructor: "Kelechi Nwosu",
         tools: [],
-        price: 12000,
-        months: 1,
       },
     ],
   },
@@ -382,6 +350,8 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
     description:
       "Learn strategies and techniques for promoting products and services online, including social media, email, and search engine marketing.",
     duration: "8 weeks",
+    price: 30000,
+    months: 2,
     courses: [
       {
         id: "mkt-1",
@@ -391,8 +361,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Zainab Yusuf",
         tools: [{ src: canva, name: "Canva" }],
-        price: 12000,
-        months: 1,
       },
       {
         id: "mkt-2",
@@ -402,8 +370,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Beginner",
         instructor: "Zainab Yusuf",
         tools: [],
-        price: 12000,
-        months: 1,
       },
       {
         id: "mkt-3",
@@ -413,8 +379,6 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Intermediate",
         instructor: "Zainab Yusuf",
         tools: [],
-        price: 15000,
-        months: 1,
       },
       {
         id: "mkt-4",
@@ -424,13 +388,11 @@ export const COURSE_CATEGORIES: CourseCategory[] = [
         level: "Advanced",
         instructor: "Zainab Yusuf",
         tools: [],
-        price: 20000,
-        months: 1,
       },
     ],
   },
 ];
 
 export function getStartingPrice(category: CourseCategory): number {
-  return Math.min(...category.courses.map((c) => c.price));
+  return category.price;
 }

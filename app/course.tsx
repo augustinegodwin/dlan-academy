@@ -70,8 +70,6 @@ const COURSES: Course[] = [
       { src: html5, name: "HTML5" },
       { src: css, name: "CSS" },
       { src: javascript, name: "JavaScript" },
-      { src: python, name: "Python" },
-      { src: java, name: "Java" },
     ],
   },
   {
