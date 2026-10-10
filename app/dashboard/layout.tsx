@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useClerk, useUser } from "@clerk/nextjs";
 import { BookOpen, Home, LogOut, Menu, Settings, X } from "lucide-react";
 
 const ITEMS = [
   { href: "/dashboard/home", label: "Home", icon: Home },
   { href: "/dashboard/courses", label: "Courses", icon: BookOpen },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
-
-const STUDENT_NAME = "Mark Daniel";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { user, isLoaded } = useUser();
+  const { signOut, openUserProfile } = useClerk();
+
+  const name = user?.fullName ?? user?.firstName ?? "Student";
 
   // Close the drawer whenever the page changes
   useEffect(() => setOpen(false), [pathname]);
@@ -52,10 +54,24 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         <div className="flex items-center gap-2 rounded-xl border border-gray-200 px-2.5 py-2">
-          <span className="grid size-5 place-items-center rounded-md bg-foreground text-[11px] font-semibold text-background">
-            {STUDENT_NAME.charAt(0)}
-          </span>
-          <span className="med-font truncate text-sm text-foreground">{STUDENT_NAME}</span>
+          {!isLoaded ? (
+            <>
+              <span className="size-5 animate-pulse rounded-md bg-foreground/10" />
+              <span className="h-3 w-24 animate-pulse rounded bg-foreground/10" />
+            </>
+          ) : (
+            <>
+              {user?.imageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.imageUrl} alt="" className="size-5 rounded-md object-cover" />
+              ) : (
+                <span className="grid size-5 place-items-center rounded-md bg-foreground text-[11px] font-semibold text-background">
+                  {name.charAt(0)}
+                </span>
+              )}
+              <span className="med-font truncate text-sm text-foreground">{name}</span>
+            </>
+          )}
         </div>
 
         <ul className="flex flex-col gap-0.5">
@@ -67,10 +83,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openUserProfile();
+              }}
+              className={`${linkClass(false)} w-full`}
+            >
+              <Settings className="size-[17px]" />
+              Settings
+            </button>
+          </li>
         </ul>
       </div>
 
-      <button type="button" className={`${linkClass(false)} w-full`}>
+      <button
+        type="button"
+        onClick={() => signOut({ redirectUrl: "/" })}
+        className={`${linkClass(false)} w-full`}
+      >
         <LogOut className="size-[17px]" />
         Log out
       </button>

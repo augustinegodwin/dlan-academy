@@ -1,7 +1,7 @@
 import { Feather, GraduationCap, Sparkles, MessageSquareQuote, Mail , Star, Wifi } from "lucide-react";
 import AboutReveal from "./AboutReveal";
 import FAQSection from "./faq";
-import babayaga from "../app/assets/images/arcadia-arcadia.png"
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import CoursesGrid from "./course";
 import WhyChooseUs from "./why";
 import Testimonials from "./testimony";
@@ -40,15 +40,19 @@ import Hero from "./hero";
   </div>
 
   <div className="flex items-center gap-2.5">
-    <div className="hidden items-center gap-1 rounded-full bg-overlay px-4 py-1.5 text-sm text-foreground/70 ring-1 ring-border backdrop-blur-md sm:flex">
-      NG <span aria-hidden>▾</span>
-    </div>
-    <a
-      href="/sign-in"
-      className="med-font rounded-full bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
-    >
-      Enroll
-    </a>
+    {/* Resume / Sign In Button */}
+          <SignInButton mode="modal">
+            <button className="rounded-full bg-background/80 px-4 py-1.5 text-sm font-medium text-foreground ring-1 ring-border backdrop-blur-md transition hover:bg-foreground/10 cursor-pointer">
+              Resume
+            </button>
+          </SignInButton>
+
+          {/* Enroll / Sign Up Button */}
+          <SignUpButton mode="modal">
+            <button className="med-font rounded-full bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90 cursor-pointer">
+              Enroll
+            </button>
+          </SignUpButton>
   </div>
 </nav>
 

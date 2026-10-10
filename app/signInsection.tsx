@@ -1,117 +1,88 @@
-import Image from "next/image";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+"use client";
 
-function LogoMark({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <path
-        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+import Image from "next/image";
+import { SignIn } from "@clerk/nextjs";
 
 export default function SignInSection() {
-  const [email, setEmail] = useState("");
-
   return (
     <section className="flex w-full flex-1 justify-center rounded-[28px] bg-surface">
       <div className="flex w-full flex-col items-stretch justify-center gap-6 px-6 py-16 sm:max-w-[420px] sm:gap-8">
-            <Image
-            src="/firebase.png"
-            alt=""
-            width={100}
-            height={100}
-            className="size-16 shrink-0 self-center"
-            />
+        
+        {/* Custom Brand Logo matching your previous design */}
+        <Image
+          src="/firebase.png"
+          alt="Dlan Academy"
+          width={100}
+          height={100}
+          className="size-16 shrink-0 self-center"
+        />
+
         <div>
           <h1 className="text-center sm:text-3xl text-2xl font-[stack-sans-bold] tracking-tight text-foreground text-balance">
-            Create your free account{" "}
+            Welcome back to Dlan
           </h1>
           <p className="text-center med-font text-sm text-muted-foreground">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Facere, atque aspernatur minima beatae 
+            Sign in to access your dashboard and active courses.
           </p>
         </div>
 
-        <div className="flex flex-col items-stretch gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            className="h-11 w-full rounded-full border-border text-sm  med-font font-medium"
-          >
-            <Image
-              src="/google.svg"
-              alt=""
-              width={18}
-              height={18}
-              className="size-[18px] shrink-0"
-            />
-            Continue with Google
-          </Button>
+        {/* Clerk's SignIn Component styled via the appearance prop to match your design tokens */}
+        <div className="w-full flex justify-center">
+          <SignIn
+            routing="path"
+            path="/sign-in"
+            fallbackRedirectUrl="/dashboard"
+            appearance={{
+              elements: {
+                // Outer container
+                rootBox: "w-full",
+                card: "bg-transparent shadow-none p-0 w-full",
+                
+                // Header text hiding (since we have our own custom header above)
+                headerTitle: "hidden",
+                headerSubtitle: "hidden",
 
-          <div className="relative flex h-5 items-center justify-center">
-            <hr className="h-px grow border-0 bg-border" />
-            <span className="w-11 shrink-0 text-center text-xs med-font text-muted-foreground">
-              or
-            </span>
-            <hr className="h-px grow border-0 bg-border" />
-          </div>
+                // Social buttons (Google) matching your outline button style
+                socialButtonsBlockButton: 
+                  "h-11 w-full rounded-full border border-border bg-background text-sm font-medium text-foreground hover:bg-foreground/[0.04] transition",
+                socialButtonsBlockButtonText: "font-medium text-sm",
+                
+                // Divider ("or")
+                dividerLine: "bg-border h-px",
+                dividerText: "text-xs text-muted-foreground uppercase px-2",
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              // wire this up to your auth handler
+                // Form inputs matching your custom input styles
+                formFieldInput: 
+                  "h-12 w-full rounded-2xl border-0 bg-foreground/[0.04] px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-0",
+                formFieldLabel: "text-xs font-medium text-foreground mb-1.5",
+
+                // Primary submit button matching your custom continue button
+                formButtonPrimary: 
+                  "h-11 w-full rounded-full bg-foreground text-sm font-medium text-background hover:bg-foreground/90 transition mt-2",
+
+                // Footer links / text
+                footerActionLink: "text-foreground font-medium underline",
+                footerActionText: "text-muted-foreground text-xs",
+                identityPreviewText: "text-foreground",
+                formResendCodeLink: "text-foreground underline",
+              },
             }}
-            className="flex flex-col items-stretch gap-4"
-          >
-            <Input
-              type="email"
-              required
-              placeholder="Enter email address"
-              aria-label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="h-12 w-full rounded-2xl med-font border-0 bg-foreground/[0.04] px-4 text-sm font-medium placeholder:font-normal placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-0"
-            />
-            <Button
-              type="submit"
-              className="h-11 w-full rounded-full bg-foreground text-sm font-medium text-background hover:bg-foreground/90"
-            >
-              Continue
-            </Button>
-
-            <p className="text-center med-font text-xs text-muted-foreground">
-              By continuing, you agree to Dlan Academy&apos;s{" "}
-              <a href="/terms" className="underline">
-                Terms of Service
-              </a>{" "}
-              and{" "}
-              <a href="/privacy" className="underline">
-                Privacy Policy
-              </a>
-              .
-            </p>
-          </form>
+          />
         </div>
 
-        {/* <p className="text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{" "}
-          <a href="#" className="font-medium text-foreground underline underline-offset-2">
-            Sign up
+        {/* Custom terms text matching your previous footer style */}
+        <p className="text-center med-font text-xs text-muted-foreground">
+          By continuing, you agree to Dlan Academy&apos;s{" "}
+          <a href="/terms" className="underline">
+            Terms of Service
+          </a>{" "}
+          and{" "}
+          <a href="/privacy" className="underline">
+            Privacy Policy
           </a>
-        </p> */}
+          .
+        </p>
+
       </div>
     </section>
   );
