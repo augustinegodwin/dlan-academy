@@ -42,7 +42,7 @@ export default function CourseCard(course: CourseDetails) {
         onClick={() => setOpen(true)}
         className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface text-left transition-colors"
       >
-        <div className="relative h-36 w-full overflow-hidden" style={{ background }}>
+        <div className="relative h-30 w-full overflow-hidden" style={{ background }}>
           <div
             aria-hidden
             className="absolute inset-0 opacity-[0.16] mix-blend-overlay"

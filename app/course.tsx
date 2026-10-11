@@ -1,10 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Code2,
   FileSpreadsheet,
@@ -13,14 +9,13 @@ import {
   Sparkles,
   BarChart3,
   Video,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-
-import babayaga from "../app/assets/images/arcadia-arcadia.png";
 
 import html5 from "../app/assets/icons/html5.svg";
 import css from "../app/assets/icons/css.svg";
 import javascript from "../app/assets/icons/javascript.svg";
-import java from "../app/assets/icons/java.svg";
 import python from "../app/assets/icons/python.svg";
 import word from "../app/assets/icons/microsoft-word (1).svg";
 import excel from "../app/assets/icons/microsoft-excel (1).svg";
@@ -34,10 +29,6 @@ import chatgpt from "../app/assets/icons/openai-chatgpt (1).svg";
 import tableau from "../app/assets/icons/tableau.svg";
 import powerbi from "../app/assets/icons/microsoft-power-bi.svg";
 import CourseCard from "./course-card";
-// Keep your existing imports (lucide icons, tool svgs) above this line.
-import { formatNGN } from "@/lib/format-price";
-
-// Keep your existing imports (lucide icons, tool svgs) above this line.
 
 type Course = {
   slug: string;
@@ -56,8 +47,8 @@ type Course = {
 
 const COURSES: Course[] = [
   {
-    slug: "programming",
-    title: "Programming",
+    slug: "web-development",
+    title: "Web Development",
     description:
       "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
     duration: "10 weeks",
@@ -182,69 +173,68 @@ const COURSES: Course[] = [
   },
 ];
 
-/* ------------------------------------------------------------------
-   In your card JSX, add this where you want the price to appear
-   (e.g. above the duration/rating row):
-
-   <div className="flex items-baseline gap-1.5">
-     <span className="text-lg font-semibold tracking-[-0.04em] text-foreground">
-       {formatNGN(course.price)}
-     </span>
-     <span className="text-[11px] text-muted-foreground">full track</span>
-   </div>
-------------------------------------------------------------------- */
 export default function CoursesGrid() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(0);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const track = trackRef.current;
-      const section = sectionRef.current;
-      const container = containerRef.current;
-      if (!track || !section || !container) return;
-
-      // Calculate exact distance required so that the track stops 
-      // precisely when the last card's right boundary aligns with the container's right boundary.
-      const getScrollDistance = () => {
-        const trackWidth = track.scrollWidth;
-        const containerWidth = container.clientWidth;
-        return Math.max(0, trackWidth - containerWidth);
-      };
-
-      const tween = gsap.to(track, {
-        x: () => -getScrollDistance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${getScrollDistance()}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      };
-    }, sectionRef);
-
-    return () => ctx.revert();
+  /** Distance between the start of one card and the next (card width + gap). */
+  const getStep = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el || el.children.length < 2) return 0;
+    const a = el.children[0] as HTMLElement;
+    const b = el.children[1] as HTMLElement;
+    return b.offsetLeft - a.offsetLeft;
   }, []);
 
+  const syncState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const atStart = el.scrollLeft <= 4;
+    const atEnd = el.scrollLeft >= maxScroll - 4;
+
+    setCanPrev(!atStart);
+    setCanNext(!atEnd);
+
+    const step = getStep();
+    if (!step) return;
+    const index = atEnd
+      ? COURSES.length - 1
+      : Math.min(COURSES.length - 1, Math.round(el.scrollLeft / step));
+    setActive(index);
+  }, [getStep]);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    syncState();
+    el.addEventListener("scroll", syncState, { passive: true });
+    window.addEventListener("resize", syncState);
+    return () => {
+      el.removeEventListener("scroll", syncState);
+      window.removeEventListener("resize", syncState);
+    };
+  }, [syncState]);
+
+  const scrollByStep = (direction: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * getStep(), behavior: "smooth" });
+  };
+
+  const scrollToIndex = (index: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollTo({ left: index * getStep(), behavior: "smooth" });
+  };
+
   return (
-    <section
-      id="courses"
-      ref={sectionRef}
-      className="relative w-full overflow-hidden py-8"
-    >
-      {/* Header Container */}
+    <section id="courses" className="relative w-full overflow-visible py-8">
+      {/* Header */}
       <div className="mx-auto max-w-[1320px] px-3 sm:px-6 md:px-10">
         <div className="animate-fade-up text-center">
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
@@ -253,29 +243,41 @@ export default function CoursesGrid() {
           <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground font-[stack-sans-bold]">
             Pick a path.
             <br />
-            <span className="text-muted-foreground">Show up and start building.</span>
+            <span className="text-muted-foreground">
+              Show up and start building.
+            </span>
           </h2>
-          <p className="max-w-2xl m-auto med-font mt-3 text-muted-foreground">
-            Eight programs, taught in person by people who work in the
-            field — not read off a slide. Small cohorts, real machines,
-            and a mentor who actually knows your name by week two.
+          <p className="med-font m-auto mt-3 max-w-2xl text-muted-foreground">
+            Seven programs, taught in person by people who work in the field —
+            not read off a slide. Small cohorts, real machines, and a mentor
+            who actually knows your name by week two.
           </p>
         </div>
       </div>
 
-      {/* Cards Slider Track Container - shares the exact max-w and horizontal padding structure */}
-      <div
-        ref={containerRef}
-        className="mx-auto mt-14 max-w-[1320px] px-3 sm:px-6 md:px-10 "
-      >
+      {/* Carousel */}
+      <div className="mx-auto mt-14 max-w-[1320px] px-3 sm:px-6 md:px-10">
+        {/* -mx / px: cards bleed to the screen edge but the first card still
+            lines up with the header.
+            -my / py: gives shadows, hover lifts and focus rings room, because
+            overflow-x-auto forces overflow-y to clip too. */}
         <div
-          ref={trackRef}
-          className="flex w-max gap-4"
+          ref={scrollerRef}
+          className="
+            relative -mx-3 -my-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain
+            px-3 py-6 scroll-pl-3
+            sm:-mx-6 sm:px-6 sm:scroll-pl-6
+            md:-mx-10 md:px-10 md:scroll-pl-10
+            [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+          "
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Courses"
         >
-          {COURSES.map((item, index) => (
+          {COURSES.map((item) => (
             <div
-              key={index}
-              className="w-[78vw] shrink-0 sm:w-[45vw] md:w-[340px] lg:w-[320px]"
+              key={item.slug}
+              className="w-[78vw] shrink-0 snap-start sm:w-[45vw] md:w-[340px] lg:w-[320px]"
             >
               <CourseCard
                 category={item.slug}
@@ -290,112 +292,50 @@ export default function CoursesGrid() {
             </div>
           ))}
         </div>
+
+        {/* Controls */}
+        <div className="mt-8 flex items-center justify-between gap-4">
+          {/* Progress dots */}
+          <div className="flex items-center gap-1.5">
+            {COURSES.map((item, i) => (
+              <button
+                key={item.slug}
+                type="button"
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Go to ${item.title}`}
+                aria-current={i === active}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === active
+                    ? "w-6 bg-foreground"
+                    : "w-1.5 bg-foreground/20 hover:bg-foreground/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scrollByStep(-1)}
+              disabled={!canPrev}
+              aria-label="Previous course"
+              className="grid size-10 place-items-center rounded-full border border-border bg-background text-foreground transition hover:bg-foreground/[0.04] active:scale-95 disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByStep(1)}
+              disabled={!canNext}
+              aria-label="Next course"
+              className="grid size-10 place-items-center rounded-full bg-foreground text-background transition hover:bg-foreground/90 active:scale-95 disabled:pointer-events-none disabled:opacity-30"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-
-function CourseArrowIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="size-4"
-    >
-      <path d="M7 7h10v10" />
-      <path d="M7 17 17 7" />
-    </svg>
-  );
-}
-
-// function CourseCard({
-//   category,
-//   title,
-//   description,
-//   mentor,
-//   startDate,
-//   duration,
-//   tools,
-// }: {
-//   category: string;
-//   title: string;
-//   description: string;
-//   mentor: string;
-//   startDate?: string;
-//   duration: string;
-//   tools: { src: any; name: string }[];
-// }) {
-//   const visible = tools.slice(0, 4);
-//   const extra = tools.length - visible.length;
-
-//   return (
-//     <a
-//       href="#enroll"
-//       className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface  transition-colors"
-//     >
-//       <div className="relative h-30 overflow-hidden">
-//         <Image
-//           className="absolute inset-0 z-10 size-full object-cover opacity-70"
-//           src="/cover2.jpg"
-//           width={500}
-//           height={500}
-//           alt={title}
-//         />
-//         <span className="absolute left-3 top-3 z-20 rounded-full bg-background/85 px-2.5 py-1 text-[11px] font-medium text-foreground/70 backdrop-blur-sm">
-//           {category}
-//         </span>
-//         <span className="absolute bottom-3 right-3 z-20 grid size-8 place-items-center rounded-full bg-background text-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:opacity-100">
-//           <CourseArrowIcon />
-//         </span>
-//       </div>
-
-//       <div className="flex flex-1 flex-col p-5">
-//         {tools.length > 0 && (
-//           <div className="mb-3 flex items-center gap-1.5">
-//             {visible.map((tool) => (
-//               <div
-//                 key={tool.name}
-//                 title={tool.name}
-//                 className="grid size-7 place-items-center rounded-md bg-background p-1.5 border border-gray-200"
-//               >
-//                 <Image
-//                   src={tool.src}
-//                   alt={tool.name}
-//                   className="size-full object-contain"
-//                 />
-//               </div>
-//             ))}
-//             {extra > 0 && (
-//               <span className="grid size-7 place-items-center rounded-md border border-border bg-foreground/10 text-[10px] font-medium text-muted">
-//                 +{extra}
-//               </span>
-//             )}
-//           </div>
-//         )}
-
-//         <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
-//           {title}
-//         </h3>
-//         <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-//           {description}
-//         </p>
-//         <div className="med-font mt-auto flex items-center gap-2 border-t border-border pt-4 text-[12px] text-muted-foreground">
-//           <span className="text-foreground">{mentor}</span>
-//           <span aria-hidden>·</span>
-//           <span>Starts {startDate ?? "soon"}</span>
-//           <span aria-hidden className="ml-auto">
-//             {duration}
-//           </span>
-//         </div>
-//       </div>
-//     </a>
-//   );
-// }

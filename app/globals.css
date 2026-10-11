@@ -148,15 +148,15 @@
 
 @font-face {
   font-family: "stack-sans-bold";
-  src: url(./assets/fonts/Ambery-Garden.otf );
+  src: url(./assets/fonts/Whipsmart\ Bold.ttf );
 }
 @font-face {
   font-family: "stack-sans-medium";
-  src: url(./assets/fonts/Ambery-Garden.otf);
+  src: url(./assets/fonts/Whipsmart\ Bold.ttf );
 }
 @font-face {
   font-family: "pally-medium";
-  src: url(./assets/fonts/Ambery-Garden.otf);
+  src: url(./assets/fonts/Whipsmart\ Bold.ttf );
 }
 
 html {
