@@ -79,7 +79,7 @@ export default function LoginPage() {
 
     <div>
       <h1 className="text-balance text-center text-2xl font-[stack-sans-bold] tracking-tight text-foreground sm:text-3xl">
-        Welcome back to Dlan
+        Welcome back to Dlan Academy
       </h1>
       <p className="med-font mt-1 text-center text-sm text-muted-foreground">
         Sign in to access your dashboard and active courses.

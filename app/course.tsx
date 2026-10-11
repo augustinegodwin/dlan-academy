@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Code2,
   FileSpreadsheet,
@@ -47,8 +49,8 @@ type Course = {
 
 const COURSES: Course[] = [
   {
-    slug: "web-development",
-    title: "Web Development",
+    slug: "programming",
+    title: "Programming",
     description:
       "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
     duration: "10 weeks",
@@ -173,15 +175,70 @@ const COURSES: Course[] = [
   },
 ];
 
+/** Desktop = GSAP pinned horizontal scroll. Below this = swipe carousel. */
+const DESKTOP_QUERY = "(min-width: 768px)";
+
 export default function CoursesGrid() {
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
   const [active, setActive] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
 
+  /* ------------------------------------------------------------------
+     DESKTOP: pinned horizontal scroll driven by page scroll (GSAP).
+     gsap.matchMedia only creates this on desktop widths and cleans it
+     up automatically (including inline transforms) when you resize down.
+  ------------------------------------------------------------------- */
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    const container = containerRef.current;
+    const track = trackRef.current;
+    if (!section || !container || !track) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add(DESKTOP_QUERY, () => {
+      // Distance needed so the last card's right edge lines up with the
+      // right edge of the content area (container minus its padding).
+      const getScrollDistance = () => {
+        const cs = getComputedStyle(container);
+        const contentWidth =
+          container.clientWidth -
+          parseFloat(cs.paddingLeft) -
+          parseFloat(cs.paddingRight);
+        return Math.max(0, track.scrollWidth - contentWidth);
+      };
+
+      gsap.to(track, {
+        x: () => -getScrollDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${getScrollDistance()}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  /* ------------------------------------------------------------------
+     MOBILE: native scroll-snap carousel helpers.
+  ------------------------------------------------------------------- */
+
   /** Distance between the start of one card and the next (card width + gap). */
   const getStep = useCallback(() => {
-    const el = scrollerRef.current;
+    const el = trackRef.current;
     if (!el || el.children.length < 2) return 0;
     const a = el.children[0] as HTMLElement;
     const b = el.children[1] as HTMLElement;
@@ -189,7 +246,7 @@ export default function CoursesGrid() {
   }, []);
 
   const syncState = useCallback(() => {
-    const el = scrollerRef.current;
+    const el = trackRef.current;
     if (!el) return;
 
     const maxScroll = el.scrollWidth - el.clientWidth;
@@ -208,7 +265,7 @@ export default function CoursesGrid() {
   }, [getStep]);
 
   useEffect(() => {
-    const el = scrollerRef.current;
+    const el = trackRef.current;
     if (!el) return;
 
     syncState();
@@ -221,19 +278,25 @@ export default function CoursesGrid() {
   }, [syncState]);
 
   const scrollByStep = (direction: 1 | -1) => {
-    const el = scrollerRef.current;
+    const el = trackRef.current;
     if (!el) return;
     el.scrollBy({ left: direction * getStep(), behavior: "smooth" });
   };
 
   const scrollToIndex = (index: number) => {
-    const el = scrollerRef.current;
+    const el = trackRef.current;
     if (!el) return;
     el.scrollTo({ left: index * getStep(), behavior: "smooth" });
   };
 
   return (
-    <section id="courses" className="relative w-full overflow-visible py-8">
+    <section
+      id="courses"
+      ref={sectionRef}
+      // overflow-x-clip hides the off-screen cards on desktop without
+      // clipping shadows / hover lifts vertically (unlike overflow-hidden).
+      className="relative w-full overflow-x-clip py-8"
+    >
       {/* Header */}
       <div className="mx-auto max-w-[1320px] px-3 sm:px-6 md:px-10">
         <div className="animate-fade-up text-center">
@@ -255,19 +318,27 @@ export default function CoursesGrid() {
         </div>
       </div>
 
-      {/* Carousel */}
-      <div className="mx-auto mt-14 max-w-[1320px] px-3 sm:px-6 md:px-10">
-        {/* -mx / px: cards bleed to the screen edge but the first card still
-            lines up with the header.
-            -my / py: gives shadows, hover lifts and focus rings room, because
-            overflow-x-auto forces overflow-y to clip too. */}
+      {/* Cards */}
+      <div
+        ref={containerRef}
+        className="mx-auto mt-14 max-w-[1320px] px-3 sm:px-6 md:px-10"
+      >
+        {/*
+          Below md (carousel):
+            - overflow-x-auto + snap = native swipe, one card at a time
+            - -mx/px lets cards bleed to the screen edge but keep alignment
+            - -my/py gives shadows & hover lifts room (overflow-x-auto clips y)
+          From md up (GSAP):
+            - everything is reset so this is just a wide flex track that
+              GSAP translates horizontally
+        */}
         <div
-          ref={scrollerRef}
+          ref={trackRef}
           className="
             relative -mx-3 -my-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain
             px-3 py-6 scroll-pl-3
             sm:-mx-6 sm:px-6 sm:scroll-pl-6
-            md:-mx-10 md:px-10 md:scroll-pl-10
+            md:m-0 md:w-max md:snap-none md:overflow-visible md:p-0
             [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
           "
           role="region"
@@ -293,9 +364,8 @@ export default function CoursesGrid() {
           ))}
         </div>
 
-        {/* Controls */}
-        <div className="mt-8 flex items-center justify-between gap-4">
-          {/* Progress dots */}
+        {/* Carousel controls (hidden on desktop, where GSAP drives it) */}
+        <div className="mt-8 flex items-center justify-between gap-4 md:hidden">
           <div className="flex items-center gap-1.5">
             {COURSES.map((item, i) => (
               <button
@@ -313,7 +383,6 @@ export default function CoursesGrid() {
             ))}
           </div>
 
-          {/* Arrows */}
           <div className="flex items-center gap-2">
             <button
               type="button"
