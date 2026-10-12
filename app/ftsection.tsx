@@ -150,7 +150,7 @@ export default function Footer() {
               </span>
             </h2>
 
-            <p className="mt-6 max-w-xl text-pretty !tracking-[-0.04em]  text-sm leading-normal med-font text-white/80 sm:text-base">
+            <p className="mt-6 max-w-xl text-pretty !tracking-[-0.04em]  leading-normal med-font text-white/80 text-base">
               Hands-on tech training in Kubwa, Abuja. Start with a free
               walk-through, enroll when you&apos;re ready.
             </p>

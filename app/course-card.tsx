@@ -79,6 +79,7 @@ export default function CourseCard(course: CourseDetails) {
                   title={tool.name}
                   className="grid size-7 place-items-center rounded-md bg-background p-1.5 border border-gray-200"
                 >
+                  
                   <Image src={tool.src} alt={tool.name} className="size-full object-contain" />
                 </div>
               ))}
