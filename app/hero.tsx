@@ -87,7 +87,7 @@ export default function Hero() {
 
           <div className="mt-7 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div className="hero-title">
-              <h1 className="text-balance  font-[stack-sans-bold] text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em]">
+              <h1 className="text-balance  font-[stack-sans-bold] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.02] ">
                 <span className="text-white/55">Learn real skills.</span>
                 <br />
                 <span className="text-white">In one cohort.</span>
@@ -95,7 +95,7 @@ export default function Hero() {
             </div>
 
             <div className="hero-desc">
-              <p className="max-w-[44ch] text-[1.0625rem] leading-[1.5] text-white/80">
+              <p className="max-w-[44ch] text-[1.0625rem] leading-normal text-white/80">
                 A <span className="text-white tracking-[-0.03em]">physical lab in Kubwa</span>.
                 Sign up, show up, and the mentors and machines you need{" "}
                 <span className="text-white">are right there</span> — no

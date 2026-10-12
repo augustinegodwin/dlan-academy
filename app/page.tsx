@@ -41,18 +41,15 @@ import Hero from "./hero";
 
   <div className="flex items-center gap-2.5">
     {/* Resume / Sign In Button */}
-          <SignInButton mode="modal">
-            <button className="rounded-full bg-background/80 px-4 py-1.5 text-sm font-medium text-foreground ring-1 ring-border backdrop-blur-md transition hover:bg-foreground/10 cursor-pointer">
-              Resume
-            </button>
-          </SignInButton>
+         
 
           {/* Enroll / Sign Up Button */}
-          <SignUpButton mode="modal">
-            <button className="med-font rounded-full bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90 cursor-pointer">
-              Enroll
-            </button>
-          </SignUpButton>
+           <a
+            href="/sign-in"
+            className="rounded-full med-font bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
+          >
+            Enroll
+          </a>
   </div>
 </nav>
 

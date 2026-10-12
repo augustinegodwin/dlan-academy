@@ -245,7 +245,7 @@ export default function ContactSection() {
 
           {/* call */}
           <ContactCard
-            className="lg:[grid-column:2] lg:[grid-row:1]"
+            className="md:[grid-column:2] md:[grid-row:1]"
             title="Prefer to talk it through?"
             description="Call the front desk and we'll walk you through courses, pricing, and start dates."
             action={{
@@ -257,7 +257,7 @@ export default function ContactSection() {
 
           {/* whatsapp */}
           <ContactCard
-            className="lg:[grid-column:2] lg:[grid-row:2]"
+            className="md:[grid-column:2] md:[grid-row:2]"
             title="Quick question?"
             description="Message us on WhatsApp — a real person replies, usually within the hour."
             action={{
@@ -269,7 +269,7 @@ export default function ContactSection() {
 
           {/* google meet */}
           <ContactCard
-            className="lg:[grid-column:3] lg:[grid-row:1]"
+            className="md:[grid-column:3] md:[grid-row:1]"
             title="Want a live walkthrough?"
             description="Book a short Google Meet with admissions before you enroll."
             action={{
@@ -281,7 +281,7 @@ export default function ContactSection() {
 
           {/* email */}
           <ContactCard
-            className="lg:[grid-column:3] lg:[grid-row:2]"
+            className="md:[grid-column:3] md:[grid-row:2]"
             title="Rather write it out?"
             description="Send us the details and we'll get back to you within a day."
             action={{

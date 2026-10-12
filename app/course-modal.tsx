@@ -30,7 +30,7 @@ export type CourseDetails = {
 };
 
 const naira = (n: number) =>
-  `NGN ${n.toLocaleString("en-NG")}`
+  `₦ ${n.toLocaleString("en-NG")}`
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
@@ -116,7 +116,7 @@ export default function CourseModal({
 
           {/* RIGHT: details + purchase */}
           <div className="flex flex-col p-6 md:p-8">
-            <DialogDescription className="med-font text-sm leading-relaxed text-muted-foreground">
+            <DialogDescription className="med-font text-sm leading-normal text-muted-foreground">
               {description}
             </DialogDescription>
 
@@ -165,8 +165,8 @@ export default function CourseModal({
             {/* price + CTA */}
             <div className="mt-auto pt-8">
               {price !== undefined && (
-                <div className="mb-3 flex items-baseline justify-between">
-                  <span className="font-[stack-sans-bold] text-2xl tracking-[-0.04em] text-foreground">
+                <div className="mb-3  flex items-baseline justify-between">
+                  <span className="med-font text-2xl tracking-[-0.1em]! text-foreground">
                     {isFree ? "Free" : naira(total!)}
                   </span>
                   {!isFree && months > 1 && (

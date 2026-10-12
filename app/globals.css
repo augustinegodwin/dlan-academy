@@ -58,7 +58,7 @@
 }
 
 *{
-  letter-spacing: -0.06em;
+  letter-spacing: -0.04em;
 }
 .dark {
   /* Core Background & Foreground (Dark Mode) */
@@ -152,16 +152,17 @@
 }
 @font-face {
   font-family: "stack-sans-medium";
-  src: url(./assets/fonts/Taste\ Bread.otf  );
+  src: url(./assets/fonts/Pally-Variable.ttf   );
 }
 @font-face {
   font-family: "pally-medium";
-  src: url(./assets/fonts/Taste\ Bread.otf  );
+  src: url(./assets/fonts/Pally-Variable.ttf   );
 }
 
 html {
   scroll-behavior: smooth;
   font-family: "stack-sans-medium", sans-serif;
+  @apply leading-normal;
 }
 
 body {
@@ -181,4 +182,7 @@ body {
 }
 .trck-thight {
   letter-spacing: -0.04em;
+}
+.text-sm {
+  font-size:15px !important;
 }

@@ -150,7 +150,7 @@ export default function Footer() {
               </span>
             </h2>
 
-            <p className="mt-6 max-w-xl text-pretty !tracking-[-0.04em]  text-sm leading-7 med-font text-white/80 sm:text-base">
+            <p className="mt-6 max-w-xl text-pretty !tracking-[-0.04em]  text-sm leading-normal med-font text-white/80 sm:text-base">
               Hands-on tech training in Kubwa, Abuja. Start with a free
               walk-through, enroll when you&apos;re ready.
             </p>
@@ -165,7 +165,7 @@ export default function Footer() {
               </a>
                             <a
 
-                href="#courses"
+                href="/courses"
                 className="inline-flex h-9 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-6 text-base med-font  text-white backdrop-blur-md transition-colors hover:bg-white/20"
               >
                 Browse courses

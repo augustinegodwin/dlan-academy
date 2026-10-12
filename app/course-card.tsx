@@ -96,7 +96,7 @@ export default function CourseCard(course: CourseDetails) {
             </h3>
             {price !== undefined && <PriceTag price={price} months={months} />}
           </div>
-          <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mb-3 med-font mt-2 line-clamp-2 text-sm leading-normal text-muted-foreground">
             {description}
           </p>
 

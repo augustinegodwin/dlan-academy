@@ -83,9 +83,7 @@ export default function CoursesPage() {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div className="hidden items-center gap-1 rounded-full bg-overlay px-4 py-1.5 text-sm text-foreground/70 ring-1 ring-border backdrop-blur-md sm:flex">
-            NG <span aria-hidden>▾</span>
-          </div>
+          
           <a
             href="/sign-in"
             className="rounded-full med-font bg-foreground px-5 py-1.5 text-sm text-background transition hover:opacity-90"
