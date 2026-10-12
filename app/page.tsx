@@ -130,5 +130,5 @@ function StatCard({ label, value }: { label: string; value: string }) {
       <p className="text-sm text-muted">{label}</p>
       <p className="mt-3 text-3xl">{value}</p>
     </div>
-  );
+  ); 
 }
