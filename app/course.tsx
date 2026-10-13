@@ -303,10 +303,10 @@ export default function CoursesGrid() {
           <span className="inline-flex select-none items-center gap-2 whitespace-nowrap rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70 backdrop-blur-md">
             Our courses
           </span>
-          <h2 className="mx-auto mt-6 max-w-[24ch] text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground font-[stack-sans-bold]">
+          <h2 className="mx-auto mt-6 max-w-[24ch] header-tracking text-balance text-[clamp(2.25rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.06em] text-foreground font-[stack-sans-bold]">
             Pick a path.
             <br />
-            <span className="text-muted-foreground">
+            <span className="text-muted-foreground header-tracking">
               Show up and start building.
             </span>
           </h2>

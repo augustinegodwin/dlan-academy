@@ -252,10 +252,10 @@ function Testimonials() {
           <h2 className="mx-auto mt-5 max-w-[26ch] text-balance text-[clamp(2rem,6.5vw,3.25rem)] leading-[1.05] tracking-[-0.06em] font-[stack-sans-bold] text-foreground sm:mt-6">
             {/* each line sits in an overflow mask so it can slide up cleanly */}
             <span className="block overflow-hidden pb-[0.12em]">
-              <span className="tm-line block">Real people, real cohorts,</span>
+              <span className="tm-line block header-tracking">Real people, real cohorts,</span>
             </span>
             <span className="block overflow-hidden pb-[0.12em]">
-              <span className="tm-line block text-muted-foreground">
+              <span className="tm-line block text-muted-foreground header-tracking">
                 real results.
               </span>
             </span>

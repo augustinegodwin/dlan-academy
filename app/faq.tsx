@@ -42,10 +42,10 @@ export default function FAQSection() {
           <span className="inline-flex select-none items-center rounded-full bg-foreground/10 px-3.5 py-2 text-[0.8125rem] text-foreground/70">
             FAQ
           </span>
-          <h2 className="mt-5 font-[stack-sans-bold] text-balance text-[clamp(2rem,4vw,3rem)] text-center sm:text-left leading-[1.05] tracking-[-0.06em] text-foreground">
+          <h2 className="mt-5 header-tracking font-[stack-sans-bold] text-balance text-[clamp(2rem,4vw,3rem)] text-center sm:text-left leading-[1.05] tracking-[-0.06em] text-foreground">
             Questions before
             <br />
-            <span className="text-muted-foreground">you enroll</span>
+            <span className="text-muted-foreground header-tracking">you enroll</span>
           </h2>
           <p className="med-font mt-4 max-w-sm text-sm leading-normal text-center sm:text-left text-muted-foreground">
             Not sure which cohort fits you? Tell us your experience level and schedule and we will point you to the right one.

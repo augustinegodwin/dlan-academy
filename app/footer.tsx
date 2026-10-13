@@ -214,10 +214,10 @@ export default function ContactSection() {
           </span>
           <h2 className="mx-auto mt-5 max-w-[24ch] text-balance text-[clamp(2rem,6.5vw,3.25rem)] font-[stack-sans-bold] leading-[1.05] tracking-[-0.06em] text-foreground sm:mt-6">
             <span className="block overflow-hidden pb-[0.12em]">
-              <span className="ct-headline block">Tell us what you want to learn,</span>
+              <span className="ct-headline block header-tracking">Tell us what you want to learn,</span>
             </span>
             <span className="block overflow-hidden pb-[0.12em]">
-              <span className="ct-headline block text-muted-foreground">
+              <span className="ct-headline block text-muted-foreground header-tracking">
                 we&apos;ll take it from there.
               </span>
             </span>

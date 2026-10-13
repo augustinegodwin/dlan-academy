@@ -92,7 +92,7 @@ export default function CourseCard(course: CourseDetails) {
           )}
 
           <div className="flex items-start justify-between gap-3">
-            <h3 className="line-clamp-2 text-[16px] tracking-[-0.04em] leading-snug text-foreground">
+            <h3 className="line-clamp-2 text-[16px] tracking-[-0.06sem] leading-snug text-foreground">
               {title}
             </h3>
             {price !== undefined && <PriceTag price={price} months={months} />}

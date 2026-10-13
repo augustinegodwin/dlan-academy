@@ -130,17 +130,17 @@ export default function Footer() {
             >
               <span className="block">
                 {HEADING_LINE_1.map((word, i) => (
-                  <span key={word} data-word className="inline-block">
+                  <span key={word} data-word className="inline-block header-tracking">
                     {word}
                     {i < HEADING_LINE_1.length - 1 && (
-                      <span className="inline-block w-[0.25em]">&nbsp;</span>
+                      <span className="inline-block w-[0.25em] header-tracking">&nbsp;</span>
                     )}
                   </span>
                 ))}
               </span>
               <span className="block">
                 {HEADING_LINE_2.map((word, i) => (
-                  <span key={word} data-word className="inline-block">
+                  <span key={word} data-word className="inline-block header-tracking">
                     {word}
                     {i < HEADING_LINE_2.length - 1 && (
                       <span className="inline-block w-[0.25em]">&nbsp;</span>

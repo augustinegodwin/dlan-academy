@@ -86,7 +86,7 @@ export default function AboutReveal() {
             className="mx-auto max-w-[1320px] text-3xl font-medium sm:text-4xl md:text-5xl lg:text-6xl leading-[1.3] sm:leading-[1.2] font-[stack-sans-bold] tracking-[-0.04em] sm:tracking-[-0.05em]"
           >
             {WORDS.map((word, i) => (
-              <span key={i} data-word className="inline-block">
+              <span key={i} data-word className="inline-block header-tracking">
                 {word}
                 {"\u00A0"}
               </span>

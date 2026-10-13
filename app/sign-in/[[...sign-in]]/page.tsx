@@ -96,17 +96,17 @@ export default function LoginPage() {
             rootBox: "w-full",
             // let focus rings breathe instead of being clipped
             cardBox: "w-full !shadow-none !border-0 !overflow-visible !bg-surface",
-            card: "w-full !gap-4 !p-0 !shadow-none !bg-surface",
+            card: "w-full !gap-4 !p-0 !shadow-none !bg-surface ",
             main: "!gap-4",
 
             header: "hidden",
             headerTitle: "hidden",
             headerSubtitle: "hidden",
 
-            socialButtons: "!gap-2",
+            socialButtons: "!gap-2 tracking-[-0.05em]!",
             socialButtonsBlockButton:
               "!h-10 w-full rounded-full border border-border bg-background text-sm font-medium text-foreground hover:bg-foreground/[0.04] transition",
-            socialButtonsBlockButtonText: "font-medium text-sm",
+            socialButtonsBlockButtonText: "font-medium text-sm tracking-[-0.05em]!",
 
             dividerRow: "!my-0",
             dividerLine: "bg-border h-px",
@@ -115,12 +115,12 @@ export default function LoginPage() {
             form: "!gap-3",
             formFieldRow: "!m-0",
             formField: "!gap-1",
-            formFieldLabel: "text-xs font-medium text-foreground",
+            formFieldLabel: "tracking-[-0.05em]! text-xs font-medium text-foreground",
             formFieldInput:
-              "!h-11 w-full rounded-2xl !border-0 bg-foreground/[0.04] px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground focus-visible:!ring-2 focus-visible:!ring-foreground focus-visible:!ring-offset-0",
+              "!h-11 w-full tracking-[-0.05em]! rounded-2xl !border-0 bg-foreground/[0.04] px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground focus-visible:!ring-2 focus-visible:!ring-foreground focus-visible:!ring-offset-0",
 
             formButtonPrimary:
-              "!h-10 w-full rounded-full bg-foreground text-sm font-medium text-background hover:bg-foreground/90 transition !mt-1 !shadow-none",
+              "!h-10 w-full rounded-full bg-foreground text-sm font-medium text-background hover:bg-foreground/90 tracking-[-0.05em]! transition !mt-1 !shadow-none",
 
             footer: "!bg-none !bg-transparent",
             footerAction: "!m-0 !p-0",

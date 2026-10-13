@@ -40,13 +40,13 @@ export type CourseCategory = {
 
 export const COURSE_CATEGORIES: CourseCategory[] = [
   {
-    slug: "programming",
-    title: "Programming",
+    slug: "Web-Development",
+    title: "Web Development",
     description:
-      "Learn Python, Java, C++, and core programming concepts from basics to advanced algorithms and data structures.",
-    duration: "10 weeks",
-    price: 25000,
-    months: 3,
+      "Learn HTML, CSS, JavaScript, and core web development concepts from basics to advanced frameworks and tools.",
+    duration: "8 weeks",
+    price: 200000,
+    months: 2,
     courses: [
       {
         id: "prog-1",

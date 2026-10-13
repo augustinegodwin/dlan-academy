@@ -88,9 +88,9 @@ export default function Hero() {
           <div className="mt-7 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div className="hero-title">
               <h1 className="text-balance  font-[stack-sans-bold] text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.02] ">
-                <span className="text-white/55">Learn real skills.</span>
+                <span className="text-white/55 header-tracking">Learn real skills.</span>
                 <br />
-                <span className="text-white">In one cohort.</span>
+                <span className="text-white header-tracking">In one cohort.</span>
               </h1>
             </div>
 

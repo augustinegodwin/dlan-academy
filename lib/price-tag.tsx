@@ -13,7 +13,7 @@ export default function PriceTag({
 }) {
   if (price === 0) {
     return (
-      <span className="shrink-0 text-[16px] font-semibold tracking-[-0.04em] leading-snug text-foreground">
+      <span className="shrink-0 text-[16px] font-semibold tracking-[-0.06em] leading-snug text-foreground">
         Free
       </span>
     );
@@ -21,7 +21,7 @@ export default function PriceTag({
 
   return (
     <div className="shrink-0 text-right leading-snug">
-      <div className="text-[16px] tracking-[-0.04em] text-foreground">
+      <div className="text-[16px] tracking-[-0.06em ] text-foreground">
         {formatNGN(price)}
         <span className="med-font ml-0.5 text-[11px] font-normal tracking-normal text-muted-foreground">
           /mo

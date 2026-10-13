@@ -5,5 +5,5 @@
  */
 export function formatNGN(amount: number): string {
   if (amount === 0) return "Free";
-  return `NGN ${amount.toLocaleString("en-NG")}`
+  return `₦${amount.toLocaleString("en-NG")}`
 }
