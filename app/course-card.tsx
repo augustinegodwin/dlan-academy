@@ -51,7 +51,7 @@ export default function CourseCard(course: CourseDetails) {
 
           <div
             aria-hidden
-            className="absolute inset-x-0 bottom-0 z-10 translate-y-[24%] px-4 transition-transform duration-500 ease-out group-hover:translate-y-[18%]"
+            className="absolute inset-x-0 bottom-0 z-10 translate-y-[24%] px-2 transition-transform duration-500 ease-out group-hover:translate-y-[18%]"
             style={{
               maskImage: "linear-gradient(to right, black 65%, transparent 100%)",
               WebkitMaskImage: "linear-gradient(to right, black 65%, transparent 100%)",

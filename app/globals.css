@@ -148,7 +148,7 @@
 
 @font-face {
   font-family: "stack-sans-bold";
-  src: url(./assets/fonts/Taste\ Bread.otf  );
+  src: url(./assets/fonts/OpenRunde-Bold.otf  );
 }
 @font-face {
   font-family: "stack-sans-medium";
@@ -185,4 +185,7 @@ body {
 }
 .text-sm {
   font-size:15px !important;
+}
+.header-tracking{
+  letter-spacing: -0.08em !important;
 }

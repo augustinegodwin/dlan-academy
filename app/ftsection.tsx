@@ -88,7 +88,7 @@ export default function Footer() {
      
         {/* background photo — drop your own file at this path */}
         <Image
-          src="/cover4.jpg"
+          src="/arcadia-arcadia.png"
           alt=""
           aria-hidden
           fill
